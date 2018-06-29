@@ -3,7 +3,7 @@ Commands related to ingame stuff
 """
 from discord.ext import commands
 
-from src.communication import scrollsguide
+from communication import scrollsguide
 
 
 class Game:

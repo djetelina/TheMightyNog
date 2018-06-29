@@ -1,7 +1,7 @@
 """Home for decorators that limit commands to specific users/groups etc."""
 from discord.ext import commands
 
-from src import settings
+import settings
 
 
 def is_dev():

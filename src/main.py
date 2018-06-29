@@ -3,9 +3,9 @@ import os
 
 from discord.ext import commands
 
-from src import settings
-from src.events import BotEvents
-from src.helpers import descriptions
+import settings
+from events import BotEvents
+from helpers import descriptions
 
 bot = commands.Bot(
     command_prefix=os.getenv('NOG_CMD_PREFIX', '!'),
