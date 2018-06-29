@@ -3,7 +3,7 @@ import logging
 import discord
 from discord.ext import commands
 
-from helpers import checks
+from src.helpers import checks
 
 
 class BotEvents:

@@ -1,5 +1,5 @@
 extensions = [
-    'cogs.general',
+    #  'cogs.generic',
     'cogs.game'
 ]
 

@@ -1,9 +1,13 @@
+"""
+Library for communicating with the scrollsguide API(s)
+"""
 import aiohttp
 import json
 from urllib.parse import quote_plus
 
 
 class Scroll:
+    """Wrapper class for Scroll information coming from the API"""
     def __init__(self, json_data: dict) -> None:
         self._id = json_data['id']
         self._name = json_data['name']
@@ -53,7 +57,7 @@ class Scroll:
 
     @property
     def description(self) -> str:
-        return self._description.replace('<', '').replace('>', '').replace('\\n', '\n')
+        return self._description.replace('<', '').replace('>', '').replace('\\n', '\n').replace('[', '').replace(']', '')
 
     @property
     def passive_rules(self) -> str:
@@ -69,6 +73,7 @@ class Scroll:
 
     @property
     def printable(self) -> str:
+        """Candidate for a prettier rewrite. Apparently emojis are monospaced and fit inside code blocks. TODO?"""
         ret = f'**{self._name}** {self.cost}\n' \
               f'{self.rarity} {self._kind.capitalize()}'
         if self.types:
@@ -91,7 +96,9 @@ class ScrollNotFound(Exception):
 
 
 async def get_scroll(name: str) -> Scroll:
+    """Gets information about a scroll"""
     async with aiohttp.ClientSession() as s:
+        # I'm sorry for fetching all of them, but the only limiting param is Id and I don't have the dict for that yet
         async with s.get('http://a.scrollsguide.com/scrolls') as resp:
             text = await resp.text()
             data = json.loads(text)

@@ -1,13 +1,16 @@
+"""
+Commands related to ingame stuff
+"""
 from discord.ext import commands
 
-from communication import scrollsguide
+from src.communication import scrollsguide
 
 
 class Game:
     def __init__(self, bot: commands.bot.Bot):
         self.bot = bot
 
-    @commands.command(decsription="Get info about a scroll")
+    @commands.command(decsription="Get info about a scroll", brief="Get info about a scroll")
     async def scroll(self, *name: str):
         name = [part.capitalize() for part in name]
         try:
