@@ -11,14 +11,15 @@ class Game:
         self.bot = bot
 
     @commands.command(decsription="Get info about a scroll", brief="Get info about a scroll")
-    async def scroll(self, *name: str):
-        name = [part.capitalize() for part in name]
-        try:
-            scroll = await scrollsguide.get_scroll(' '.join(name))
-        except scrollsguide.ScrollNotFound:
-            await self.bot.say("I couldn't find that scroll")
-        else:
-            await self.bot.say(scroll.printable)
+    async def scroll(self, ctx: commands.Context, *name: str):
+        async with ctx.typing():
+            name = [part.capitalize() for part in name]
+            try:
+                scroll = await scrollsguide.get_scroll(' '.join(name))
+            except scrollsguide.ScrollNotFound:
+                await ctx.send("I couldn't find that scroll")
+            else:
+                await ctx.send(scroll.printable)
 
 
 def setup(bot):

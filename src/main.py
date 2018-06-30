@@ -1,19 +1,15 @@
 import logging
 import os
 
-from discord.ext import commands
-
 import settings
-from events import BotEvents
+from mighty_nog import MightyNog
 from helpers import descriptions
 
-bot = commands.Bot(
+bot = MightyNog(
     command_prefix=os.getenv('NOG_CMD_PREFIX', '!'),
     description=descriptions.main,
     pm_help=True
 )
-
-BotEvents(bot)
 
 
 def setup_logging():
@@ -25,8 +21,6 @@ def setup_logging():
     formatter_console = logging.Formatter(
         '\033[92m{asctime} \033[0m| '
         '\033[94m{name:>18}.py \033[0m-> '
-        '\033[95m{funcName:>15}() \033[0m-> '
-        '\033[96m{lineno:4} \033[0m| '
         '\033[93m{levelname:>8}: \033[0m'
         '{message}',
         "%d.%m.%Y %H:%M:%S",
