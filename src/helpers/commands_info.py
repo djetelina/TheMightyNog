@@ -36,3 +36,11 @@ servers_cbsapi = dict(
     brief='Changes whether you are running cbsapi alongside your server',
     usage="<server_name> <state_value>"
 )
+servers_rating = dict(
+    description="Gets rating of a user, WIP"
+)
+
+servers_top = dict(
+    description="Gets top 10 of a server",
+    brief="Gets top 10 of a server"
+)

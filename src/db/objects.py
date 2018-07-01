@@ -24,18 +24,17 @@ class BotServers:
 
     @property
     def printable(self) -> str:
-        servers = '\n'.join(f'| {server.printable} |' for server in self.servers)
-        width = max(len(x) for x in servers.split('\n')) - 1
-        centered_headline = "{0:^{width}}".format("Servers", width=width)
-        separation_line = " " + "-" * (width - 1)
+        servers = '\n'.join(f'{server.printable}' for server in self.servers)
         if not servers:
             return "No servers yet!"
         return f'```\n' \
-               f'{centered_headline}\n' \
-               f'{separation_line}\n' \
                f'{servers}\n' \
-               f'{separation_line}' \
                f'```'
+
+    def get_by_name(self, server_name) -> 'BotServer':
+        for server in self.servers:
+            if server.name.lower() == server_name.lower():
+                return server
 
 
 class BotServer:
@@ -65,10 +64,7 @@ class BotServer:
 
     @property
     def printable(self) -> str:
-        if self._owner_name is not None:
-            return f"{self._name} # {self._address} by {self._owner_name} | ranking {self.cbsapi_human}"
-        else:
-            return f"{self._name} # {self._address} | ranking {self.cbsapi_human}"
+        return f"{self._name} # {self._address}"
 
     @classmethod
     async def from_db(cls, conn: SAConnection, server_name: str) -> Optional['BotServer']:
@@ -87,6 +83,10 @@ class BotServer:
     @property
     def owner(self) -> int:
         return self._owner
+
+    @property
+    def name(self) -> str:
+        return self._name
 
     async def set_cbsapi(self, conn: SAConnection, api_address: Optional[str]) -> None:
         await conn.execute(tables.servers.update(tables.servers.c.name == self._name).values(

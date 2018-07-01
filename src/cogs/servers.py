@@ -1,6 +1,10 @@
+import logging
+from typing import Optional, Union
+
 from aiopg.sa import SAConnection
 from discord.ext import commands
 
+from communication.cbsapi import CBSAPI
 from db.objects import BotUser, BotServers, BotServer
 from helpers import commands_info
 
@@ -53,6 +57,46 @@ class Servers:
                 else:
                     await server.set_cbsapi(conn, desired_state)
                     await ctx.author.send(f"Your server now has cbsapi: {str(desired_state)}")
+
+    @commands.command(**commands_info.servers_rating)
+    async def rating(self, ctx: commands.Context, player: str, server_name: str='ScrollsGuide'):
+        async with ctx.typing():
+            async with self.bot.db_engine.acquire() as conn:
+                server = await self.__get_server_check_api(ctx, conn, server_name)
+                await ctx.send("Not implemented yet, sorry :(")
+                return
+
+    @commands.command(**commands_info.servers_top)
+    async def top(self, ctx: commands.Context, server_name: str='ScrollsGuide'):
+        async with ctx.typing():
+            async with self.bot.db_engine.acquire() as conn:
+                server = await self.__get_server_check_api(ctx, conn, server_name)
+                if server is None:
+                    await ctx.send(f"I'm not aware of a server: {server_name}")
+                    return
+                elif server is False:
+                    await ctx.send(f"Server {server_name} doesn't offer ratings api")
+                    return
+                else:
+                    api = CBSAPI(server.cbsapi)
+                    top_ten = await api.ranking()
+                    top_ten_strings = [f"{player['name']:12} | {int(player['rating'])}" for player in top_ten]
+                    resp = f"Top 10 @ {server_name}\n```"
+                    for rank, player_str in enumerate(top_ten_strings, start=1):
+                        resp += f'{rank:2}. {player_str}\n'
+                    resp += '```'
+                    await ctx.send(resp)
+
+    async def __get_server_check_api(self, ctx: commands.Context, conn: SAConnection, server_name: str) -> \
+            Union[None, bool, BotServer]:
+        servers = await BotServers.load_all(conn, ctx.guild)
+        server = servers.get_by_name(server_name)
+        if server is None:
+            return None
+        if not server.cbsapi:
+            return False
+        else:
+            return server
 
 
 def setup(bot):
