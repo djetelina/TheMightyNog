@@ -5,12 +5,6 @@ import settings
 from mighty_nog import MightyNog
 from helpers import descriptions
 
-bot = MightyNog(
-    command_prefix=os.getenv('NOG_CMD_PREFIX', '!'),
-    description=descriptions.main,
-    pm_help=True
-)
-
 
 def setup_logging():
     """Me being playful with logging"""
@@ -30,8 +24,17 @@ def setup_logging():
     log.addHandler(console)
 
 
+setup_logging()
+
+bot = MightyNog(
+    command_prefix=os.getenv('NOG_CMD_PREFIX', '!'),
+    description=descriptions.main,
+    pm_help=True,
+    db=os.environ['NOG_DB_DSN']
+)
+
+
 if __name__ == '__main__':
-    setup_logging()
     for extension in settings.extensions:
         bot.load_extension(extension)
     bot.run(os.environ.get('NOG_BOT_TOKEN'))

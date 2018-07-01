@@ -1,18 +1,22 @@
+import asyncio
 import logging
+from typing import Optional
 
-import discord
+from aiopg import sa
+from aiopg.sa.result import ResultProxy, RowProxy
 from discord.ext import commands
 
 
 class MightyNog(commands.Bot):
 
-    async def on_message(self, message: discord.Message) -> None:
-        if message.author is self.user:
-            return
-        await self.process_commands(message)
+    def __init__(self, *args, **kwargs):
+        self.__db_dsn = kwargs.pop('db')
+        self.db_engine = None  # type: Optional[sa.Engine]
+        asyncio.get_event_loop().run_until_complete(self.create_engine())
+        super().__init__(*args, **kwargs)
 
     async def on_command(self, ctx: commands.context) -> None:
-        logging.info(f'"{ctx.message.content}" by {ctx.author.name} @ #{ctx.channel.name} ')
+        logging.info(f'"{ctx.message.content}" by {ctx.author.name} @ {getattr(ctx.channel, "name", "PM")}')
 
     async def on_command_completion(self, ctx: commands.context) -> None:
         logging.info(f'"{ctx.message.content}" done')
@@ -26,3 +30,12 @@ class MightyNog(commands.Bot):
             pass
         else:
             logging.exception("Command failed", exc_info=exc)
+
+    async def create_engine(self):
+        self.db_engine = await sa.create_engine(dsn=self.__db_dsn)
+        async with self.db_engine.acquire() as conn:  # type: sa.SAConnection
+            res = await conn.execute('SELECT NOW()')  # type: ResultProxy
+            ret = await res.fetchone()  # type: RowProxy
+            if ret is None:
+                raise Exception("Couldn't connect to database")
+        logging.info('Connected to database')
