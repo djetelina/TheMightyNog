@@ -3,7 +3,7 @@ import os
 
 import settings
 from mighty_nog import MightyNog
-from helpers import descriptions
+from helpers import commands_info
 
 
 def setup_logging():
@@ -28,7 +28,7 @@ setup_logging()
 
 bot = MightyNog(
     command_prefix=os.getenv('NOG_CMD_PREFIX', '!'),
-    description=descriptions.main,
+    description=commands_info.main,
     pm_help=True,
     db=os.environ['NOG_DB_DSN']
 )

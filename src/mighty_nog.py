@@ -26,8 +26,8 @@ class MightyNog(commands.Bot):
             # This might come back to bight me in the ass if the error string ever gets changed
             logging.info("Unknown command: {}".format(str(exc).split('"')[1]))
             await ctx.send("I don't know that command, try using `!help`")
-        if isinstance(exc, commands.errors.MissingRequiredArgument):
-            pass
+        elif isinstance(exc, commands.errors.MissingRequiredArgument):
+            await ctx.send("Not enough arguments provided, `!help` works for individual commands too")
         else:
             logging.exception("Command failed", exc_info=exc)
 

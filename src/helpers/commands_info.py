@@ -1,0 +1,29 @@
+"""
+This could eventually just read all the descriptions from toml file or something. Right now let's be lazy like this
+
+Used to generate !help when passed to @command.command
+"""
+main = """
+I am The Mighty Nog! I'll help you around here"""
+users_register = dict(
+    description="Register with a bot\n"
+                "TheMightyNog will remember your discord id and will be able to associate "
+                "useful information with that.",
+    brief="Register with the bot"
+)
+users_consent = dict(
+    description="Give consent to the bot storing your potentionally personal information",
+    brief="Give consent with personal information storage after registering",
+    usage="yes"
+)
+servers_servers = dict(
+    description="Lists all available servers",
+    brief="Lists all available servers"
+)
+servers_publish = dict(
+    name='publish',
+    description="Publishes a server for people to browse. \n"
+                "Please provide the name of the server and it's address (with port)",
+    brief='Publishes a server for people to browse',
+    usage="<server_name> <server_address>"
+)
