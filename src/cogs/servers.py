@@ -38,6 +38,9 @@ class Servers:
         async with ctx.typing():
             async with self.bot.db_engine.acquire() as conn:
                 server = await BotServer.from_db(conn, server_name)
+                if server is None:
+                    await ctx.author.send("I don't know that server")
+                    return
                 if server.owner != ctx.author.id:
                     await ctx.author.send("That is not your server!")
                     return
