@@ -27,3 +27,12 @@ servers_publish = dict(
     brief='Publishes a server for people to browse',
     usage="<server_name> <server_address>"
 )
+servers_cbsapi = dict(
+    name='cbsapi',
+    description="Changes whether you are running cbsapi alongside your server\n"
+                "To enable provide a value that points to your API address"
+                "To disable try: `no`, `off`, `disabled`, `disable`\n"
+                "You can get cbsapi at: https://github.com/kbasten/CBSAPI",
+    brief='Changes whether you are running cbsapi alongside your server',
+    usage="<server_name> <state_value>"
+)

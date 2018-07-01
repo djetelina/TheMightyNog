@@ -6,7 +6,7 @@ servers = sa.Table(
     'servers', metadata,
     sa.Column('name', sa.String(256), primary_key=True),
     sa.Column('address', sa.String(256), nullable=False),
-    sa.Column('csbapi', sa.Boolean, default=False),
+    sa.Column('cbsapi', sa.String(256)),
     sa.Column('owner', sa.BigInteger, sa.ForeignKey('users.id_'))
 )
 

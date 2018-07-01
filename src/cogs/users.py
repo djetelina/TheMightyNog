@@ -24,7 +24,7 @@ class User:
                     await ctx.author.send("You are already registered")
                     return
                 else:
-                    await user.register(conn)
+                    await user.register(conn, ctx.author.id)
                     # TODO jinja/async template engine for these messages, starting to get annoying.
                     await ctx.author.send("Thank you for registering!\n\n"
                                           "Before any of my registered only features start working, let me inform you "

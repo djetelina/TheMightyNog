@@ -1,8 +1,10 @@
-from typing import List
+import logging
+from typing import List, Optional
 
 import sqlalchemy
 from aiopg.sa import SAConnection
 from aiopg.sa.result import RowProxy
+from discord import Guild
 
 from db import tables
 
@@ -12,29 +14,36 @@ class BotServers:
         self.servers = servers
 
     @classmethod
-    async def load_all(cls, conn: SAConnection) -> 'BotServers':
+    async def load_all(cls, conn: SAConnection, guild: Guild) -> 'BotServers':
         servers = list()
         res = await conn.execute(tables.servers.select())
         for row in await res.fetchall():
-            servers.append(await BotServer.from_row_proxy(row))
+            servers.append(await BotServer.from_row_proxy(row, guild))
         return cls(servers)
 
     @property
     def printable(self) -> str:
-        servers = '\n'.join(server.printable for server in self.servers)
+        servers = '\n'.join(f'| {server.printable} |' for server in self.servers)
+        width = max(len(x) for x in servers.split('\n')) - 1
+        centered_headline = "{0:^{width}}".format("Servers", width=width)
+        separation_line = " " + "-" * (width - 1)
         if not servers:
             return "No servers yet!"
         return f'```\n' \
+               f'{centered_headline}\n' \
+               f'{separation_line}\n' \
                f'{servers}\n' \
+               f'{separation_line}' \
                f'```'
 
 
 class BotServer:
-    def __init__(self, name: str, address: str, owner: int, csbapi=False):
+    def __init__(self, name: str, address: str, owner: int, cbsapi: Optional[str]=None, owner_name: Optional[str]=None):
         self._name = name
         self._address = address
         self._owner = owner
-        self.csbapi = csbapi
+        self._cbsapi = cbsapi
+        self._owner_name = owner_name
 
     @classmethod
     async def publish(cls, conn: SAConnection, name: str, address: str, owner: int) -> 'BotServer':
@@ -46,13 +55,43 @@ class BotServer:
         return cls(name, address, owner)
 
     @classmethod
-    async def from_row_proxy(cls, row: RowProxy) -> 'BotServer':
-        return cls(name=row.name, address=row.address, owner=row.owner)
+    async def from_row_proxy(cls, row: RowProxy, guild: Optional[Guild]=None) -> 'BotServer':
+        if guild is not None:
+            owner_name = guild.get_member(row.owner).name
+        else:
+            owner_name = None
+        return cls(name=row.name, address=row.address, owner=row.owner, cbsapi=row.cbsapi, owner_name=owner_name)
 
     @property
     def printable(self) -> str:
-        # TODO owner
-        return f"{self._name} # {self._address}"
+        if self._owner_name is not None:
+            return f"{self._name} # {self._address} by {self._owner_name} | ranking {self.cbsapi_human}"
+        else:
+            return f"{self._name} # {self._address} | ranking {self.cbsapi_human}"
+
+    @classmethod
+    async def from_db(cls, conn: SAConnection, server_name: str) -> Optional['BotServer']:
+        res = await conn.execute(tables.servers.select(tables.servers.c.name == server_name))
+        row = await res.fetchone()
+        return await BotServer.from_row_proxy(row) if row is not None else None
+
+    @property
+    def cbsapi(self) -> str:
+        return self._cbsapi
+
+    @property
+    def cbsapi_human(self) -> str:
+        return '✓' if self.cbsapi else '✖'
+
+    @property
+    def owner(self) -> int:
+        return self._owner
+
+    async def set_cbsapi(self, conn: SAConnection, api_address: Optional[str]) -> None:
+        await conn.execute(tables.servers.update(tables.servers.c.name == self._name).values(
+            cbsapi=api_address
+        ))
+        self._cbsapi = api_address
 
 
 class BotUser:
@@ -82,10 +121,10 @@ class BotUser:
     def registering(self) -> bool:
         return True if self.id_ is not None and self._granted_permission is None else False
 
-    async def register(self, conn: SAConnection) -> None:
+    async def register(self, conn: SAConnection, discord_int: int) -> None:
         """Begins the process of registration, requires user GDPR consent to finish"""
         insert_query = tables.users.insert().values(
-            id_=self.id_
+            id_=discord_int
         )
         await conn.execute(insert_query)
 
