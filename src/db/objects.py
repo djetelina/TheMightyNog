@@ -5,6 +5,7 @@ import sqlalchemy
 from aiopg.sa import SAConnection
 from aiopg.sa.result import RowProxy
 from discord import Guild
+from sqlalchemy import func
 
 from db import tables
 
@@ -71,9 +72,9 @@ class BotServer:
 
     @classmethod
     async def from_db(cls, conn: SAConnection, server_name: str) -> Optional['BotServer']:
-        res = await conn.execute(tables.servers.select(tables.servers.c.name == server_name))
+        res = await conn.execute(tables.servers.select(func.lower(tables.servers.c.name) == server_name.lower()))
         row = await res.fetchone()
-        return await BotServer.from_row_proxy(row) if row is not None else None
+        return await cls.from_row_proxy(row) if row is not None else None
 
     @property
     def cbsapi(self) -> str:

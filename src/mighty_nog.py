@@ -28,6 +28,8 @@ class MightyNog(commands.Bot):
             await ctx.send("I don't know that command, try using `!help`")
         elif isinstance(exc, commands.errors.MissingRequiredArgument):
             await ctx.send("Not enough arguments provided, `!help` works for individual commands too")
+        elif isinstance(exc, commands.errors.CheckFailure):
+            await ctx.send(f"You can't do that {ctx.author.mention}!")
         else:
             logging.exception("Command failed", exc_info=exc)
 
