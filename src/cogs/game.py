@@ -18,6 +18,8 @@ class Game:
                 scroll = await scrollsguide.get_scroll(' '.join(name))
             except scrollsguide.ScrollNotFound:
                 await ctx.send("I couldn't find that scroll")
+            except scrollsguide.MultipleScrollsFound as e:
+                await ctx.send(str(e))
             else:
                 await ctx.send(scroll.printable)
 

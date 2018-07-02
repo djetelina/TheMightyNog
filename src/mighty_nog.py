@@ -15,7 +15,6 @@ failed_command_count = Counter('failed_command_count', 'How many times a command
 
 
 class MightyNog(commands.Bot):
-
     def __init__(self, *args, **kwargs):
         self.__db_dsn = kwargs.pop('db')
         self.db_engine = None  # type: Optional[sa.Engine]

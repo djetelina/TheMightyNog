@@ -60,8 +60,12 @@ class Scroll:
         return self._description.replace('<', '').replace('>', '').replace('\\n', '\n').replace('[', '').replace(']', '')
 
     @property
+    def flavor(self) -> str:
+        return self._flavor.lstrip('\\n').replace('\\n', '\n')
+
+    @property
     def passive_rules(self) -> str:
-        return ', '.join([rule['name'] for rule in self._passive_rules])
+        return ', '.join([rule['name'].replace('[', '').replace(']', '') for rule in self._passive_rules])
 
     @property
     def types(self) -> str:
@@ -87,12 +91,23 @@ class Scroll:
         if self.description:
             ret += f'\n\n{self.description}'
         if self._flavor:
-            ret += f'\n\n*{self._flavor}*'
+            ret += f'\n\n*{self.flavor}*'
         return ret
 
 
 class ScrollNotFound(Exception):
     pass
+
+
+class MultipleScrollsFound(Exception):
+    def __init__(self, scrolls, search_term):
+        self.scrolls = [scroll['name'] for scroll in scrolls]
+        self.search_term = search_term
+
+    def __str__(self):
+        if len(self.scrolls) > 5:
+            return f"Too many scrolls start with {self.search_term}"
+        return f'Multiple scrolls starting with {self.search_term}: {", ".join(self.scrolls)}'
 
 
 async def get_scroll(name: str) -> Scroll:
@@ -102,8 +117,14 @@ async def get_scroll(name: str) -> Scroll:
         async with s.get('http://a.scrollsguide.com/scrolls') as resp:
             text = await resp.text()
             data = json.loads(text)
+            backup_scrolls = list()
             for scroll in data.get('data', []):
                 if scroll['name'] == name:
                     return Scroll(scroll)
-
+                elif scroll['name'].startswith(name):
+                    backup_scrolls.append(scroll)
+            if len(backup_scrolls) == 1:
+                return Scroll(backup_scrolls[0])
+            elif backup_scrolls:
+                raise MultipleScrollsFound(backup_scrolls, name)
             raise ScrollNotFound
