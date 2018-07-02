@@ -1,6 +1,8 @@
 import logging
 import os
 
+from prometheus_client import start_http_server
+
 import settings
 from mighty_nog import MightyNog
 from helpers import commands_info
@@ -35,6 +37,7 @@ bot = MightyNog(
 
 
 if __name__ == '__main__':
+    start_http_server(8000)
     for extension in settings.extensions:
         bot.load_extension(extension)
     bot.run(os.environ.get('NOG_BOT_TOKEN'))

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6459e4c025b0f91975cf482f53d37ae51d17b34255bbc12ad2eda57868c0205f"
+            "sha256": "9746f18f31fceae1dcecae9ed12e5d390fe011763030bf2e8491a34193c12a38"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -27,6 +27,13 @@
         "discord.py": {
             "git": "https://github.com/Rapptz/discord.py.git",
             "ref": "983be101111fb875e841c2946e10e275f5e8a4cd"
+        },
+        "prometheus-client": {
+            "hashes": [
+                "sha256:d96472e43bb49b10ec748b59014af122048ff7c5c2528994683e4783250865e4"
+            ],
+            "index": "pypi",
+            "version": "==0.2.0"
         },
         "psycopg2": {
             "hashes": [
