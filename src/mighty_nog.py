@@ -10,7 +10,7 @@ from prometheus_client import Summary, Counter
 
 
 latency = Summary('command_latency_ms', 'Latency of a command in ms')
-command_count = Counter('commands_invoked', 'How many times a command was invoked', ['channel'])
+command_count = Counter('commands_invoked', 'How many times a command was invoked', ['guild', 'channel', 'command_name'])
 failed_command_count = Counter('failed_command_count', 'How many times a command failed unexpectedly')
 
 
@@ -21,17 +21,19 @@ class MightyNog(commands.Bot):
         asyncio.get_event_loop().run_until_complete(self.create_engine())
         super().__init__(*args, **kwargs)
 
-    async def on_command(self, ctx: commands.context) -> None:
+    async def on_command(self, ctx: commands.Context) -> None:
         ctx.start_time = time.time()
         channel = getattr(ctx.channel, "name", "PM")
-        command_count.labels(channel).inc()
+        guild = getattr(ctx.guild, "name", "PM")
+        command = f'{ctx.command.name} {ctx.invoked_subcommand.name}' if ctx.invoked_subcommand else ctx.command.name
+        command_count.labels(guild, channel, command).inc()
         logging.info(f'"{ctx.message.content}" by {ctx.author.name} @ {channel}')
 
     async def on_command_completion(self, ctx: commands.context) -> None:
         logging.info(f'"{ctx.message.content}" done')
         latency.observe((time.time() - ctx.start_time) * 1000)
 
-    async def on_command_error(self, ctx: commands.context, exc: Exception) -> None:
+    async def on_command_error(self, ctx: commands.Context, exc: Exception) -> None:
         if isinstance(exc, commands.errors.CommandNotFound):
             # This might come back to bight me in the ass if the error string ever gets changed
             logging.info("Unknown command: {}".format(str(exc).split('"')[1]))
@@ -43,7 +45,6 @@ class MightyNog(commands.Bot):
         else:
             logging.exception("Command failed", exc_info=exc)
             failed_command_count.inc()
-        latency.observe((time.time() - ctx.start_time)*1000)
 
     async def create_engine(self):
         self.db_engine = await sa.create_engine(dsn=self.__db_dsn)
