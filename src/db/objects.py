@@ -56,7 +56,7 @@ class BotServer:
 
     @classmethod
     async def from_row_proxy(cls, row: RowProxy, guild: Optional[Guild]=None) -> 'BotServer':
-        if guild is not None:
+        if guild is not None and guild.get_member(row.owner):
             owner_name = guild.get_member(row.owner).name
         else:
             owner_name = None
