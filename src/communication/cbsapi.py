@@ -12,5 +12,6 @@ class CBSAPI:
             async with sess.get(f'{self.address.rstrip("/")}/ranking') as resp:
                 text = await resp.text()
                 data = json.loads(text)
-                top_ten = data[:10]
+                # TODO check if status = OK
+                top_ten = data['data'][:10]
                 return top_ten
