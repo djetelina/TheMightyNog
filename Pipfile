@@ -8,6 +8,8 @@ name = "pypi"
 aiopg = "*"
 sqlalchemy = "*"
 prometheus-client = "*"
+"jinja2" = "*"
+ago = "*"
 
 [dev-packages]
 

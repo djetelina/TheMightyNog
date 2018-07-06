@@ -28,6 +28,14 @@ class Scroll:
         self._abilities = json_data.get('abilities', [])
 
     @property
+    def name(self) -> str:
+        return self._name
+
+    @property
+    def image_url(self) -> str:
+        return f'https://a.scrollsguide.com/image/screen?name={quote_plus(self.name)}&size=small'
+
+    @property
     def cost(self) -> str:
         if self._growth_cost:
             return f'<:Growth:320829951534170113> {self._growth_cost}'
@@ -45,6 +53,10 @@ class Scroll:
     @property
     def countdown(self) -> str:
         return '-' if self._countdown < 1 else self._countdown
+
+    @property
+    def health(self) -> str:
+        return self._health
 
     @property
     def rarity(self) -> str:
@@ -65,34 +77,15 @@ class Scroll:
 
     @property
     def passive_rules(self) -> str:
-        return ', '.join([rule['name'].replace('[', '').replace(']', '') for rule in self._passive_rules])
+        return '; '.join([rule['name'].replace('[', '').replace(']', '') for rule in self._passive_rules])
 
     @property
     def types(self) -> str:
         return self._types.replace(',', ', ')
 
     @property
-    def image(self) -> str:
-        return f'https://a.scrollsguide.com/image/screen?name={quote_plus(self._name)}&size=small'
-
-    @property
-    def printable(self) -> str:
-        """Candidate for a prettier rewrite. Apparently emojis are monospaced and fit inside code blocks. TODO?"""
-        ret = f'**{self._name}** {self.cost}\n' \
-              f'{self.rarity} {self._kind.capitalize()}'
-        if self.types:
-            ret += f' ({self.types})'
-        if self.attack != '-' or self.countdown != '-' or self._health:
-            ret += f'\n<:attack:462355358229200916> {self.attack} | ' \
-                   f'<:countdown:462355358057496577> {self.countdown} | ' \
-                   f'<:health:462355358250434570> {self._health}'
-        if self.passive_rules:
-            ret += f'\n*{self.passive_rules}*'
-        if self.description:
-            ret += f'\n\n{self.description}'
-        if self._flavor:
-            ret += f'\n\n*{self.flavor}*'
-        return ret
+    def kind(self) -> str:
+        return self._kind.capitalize()
 
 
 class ScrollNotFound(Exception):
@@ -119,9 +112,9 @@ async def get_scroll(name: str) -> Scroll:
             data = json.loads(text)
             backup_scrolls = list()
             for scroll in data.get('data', []):
-                if scroll['name'] == name:
+                if scroll['name'].lower() == name.lower():
                     return Scroll(scroll)
-                elif scroll['name'].startswith(name):
+                elif scroll['name'].lower().startswith(name.lower()):
                     backup_scrolls.append(scroll)
             if len(backup_scrolls) == 1:
                 return Scroll(backup_scrolls[0])

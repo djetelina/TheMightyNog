@@ -1,11 +1,14 @@
 import asyncio
 import logging
+import pathlib
 import time
 from typing import Optional
 
+from ago import human
 from aiopg import sa
 from aiopg.sa.result import ResultProxy, RowProxy
 from discord.ext import commands
+from jinja2 import FileSystemLoader, Environment
 from prometheus_client import Summary, Counter
 
 
@@ -19,6 +22,7 @@ class MightyNog(commands.Bot):
         self.__db_dsn = kwargs.pop('db')
         self.db_engine = None  # type: Optional[sa.Engine]
         asyncio.get_event_loop().run_until_complete(self.create_engine())
+        self.templating = self.__init_templating()
         super().__init__(*args, **kwargs)
 
     async def on_command(self, ctx: commands.Context) -> None:
@@ -54,3 +58,8 @@ class MightyNog(commands.Bot):
             if ret is None:
                 raise Exception("Couldn't connect to database")
         logging.info('Connected to database')
+
+    def __init_templating(self) -> Environment:
+        loader = FileSystemLoader(searchpath=[pathlib.Path(__file__).resolve().parent.parent / 'templates'])
+        template_env = Environment(loader=loader)
+        return template_env

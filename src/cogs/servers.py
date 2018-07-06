@@ -1,17 +1,18 @@
-import logging
-from datetime import datetime
 from typing import Union
 
+from ago import human
 from aiopg.sa import SAConnection
+from discord import Embed
 from discord.ext import commands
 
 from communication.cbsapi import CBSAPI, PlayerNotFound
 from db.objects import BotUser, BotServers, BotServer
 from helpers import commands_info
+from mighty_nog import MightyNog
 
 
 class Servers:
-    def __init__(self, bot):
+    def __init__(self, bot: MightyNog):
         self.bot = bot
 
     @commands.group(**commands_info.servers_servers)
@@ -73,7 +74,7 @@ class Servers:
                     except PlayerNotFound as _:
                         await ctx.send(f"Player `{player}` not found")
                     else:
-                        await ctx.send(f"Player: {player_data['name']}, Rating: {int(player_data['rating'])}")
+                        await ctx.send(f"{player_data['name']} has rating {int(player_data['rating'])}")
 
     @commands.command(**commands_info.servers_player)
     async def player(self, ctx: commands.Context, player: str, server_name: str='ScrollsGuide'):
@@ -91,17 +92,19 @@ class Servers:
                     else:
                         # Seriously I need the template engine like yesterday why didn't I implement it already?
                         if player_data['last_login']:
-                            last_login = datetime.fromtimestamp(player_data['last_login']).strftime('%d.%m.%y')
+                            last_login = human(player_data['last_login'], precision=1)
                         else:
                             last_login = 'never'
-                        await ctx.send(f"Player: {player_data['name']}, Rating: {int(player_data['rating'])}, "
-                                       f"Last online: "
-                                       f"{last_login}, "
-                                       f"Collection (C|U|R): "
-                                       f"{player_data['collection']['commons']}|"
-                                       f"{player_data['collection']['uncommons']}|"
-                                       f"{player_data['collection']['rares']}, "
-                                       f"Games (W/L): {player_data['games']['won'] or 0}/{player_data['games']['lost'] or 0}")
+                        embed = Embed(title=player_data['name'])
+                        embed.add_field(name='Rating', value=str(int(player_data['rating'])))
+                        embed.add_field(name='Last online', value=last_login)
+                        embed.add_field(name='Achievements', value=player_data['unlocks']['achievements'])
+                        embed.add_field(name='Commons', value=player_data['collection']['commons'])
+                        embed.add_field(name='Uncommons', value=player_data['collection']['uncommons'])
+                        embed.add_field(name='Rares', value=player_data['collection']['uncommons'])
+                        embed.add_field(name='Games won', value=player_data['games']['won'])
+                        embed.add_field(name='Games lost', value=player_data['games']['lost'])
+                        await ctx.send(embed=embed)
 
     @commands.command(**commands_info.servers_top)
     async def top(self, ctx: commands.Context, server_name: str='ScrollsGuide'):
@@ -113,14 +116,7 @@ class Servers:
                 else:
                     api = CBSAPI(server.cbsapi)
                     top_ten = await api.ranking()
-                    # TODO again, templating is needed here.
-                    resp = f"Top 10 @ {server_name}\n```"
-                    rank = 1
-                    for i, player in enumerate(top_ten, start=1):
-                        if player['rating'] != top_ten[i - 2]['rating']:
-                            rank = i
-                        resp += f"{rank:2}. {player['name']:12} | {int(player['rating'])}\n"
-                    resp += '```'
+                    resp = self.bot.templating.get_template('top.md').render(server_name=server_name, top_ten=top_ten)
                     await ctx.send(resp)
 
     async def __get_server_check_api(self, ctx: commands.Context, conn: SAConnection, server_name: str) -> \
