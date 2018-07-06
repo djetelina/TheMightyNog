@@ -86,7 +86,7 @@ class Servers:
                     for i, player in enumerate(top_ten, start=1):
                         if player['rating'] != top_ten[i - 2]['rating']:
                             rank = i
-                        resp += f"{rank:2}. {player['name']:12} | {int(player['rating'])}"
+                        resp += f"{rank:2}. {player['name']:12} | {int(player['rating'])}\n"
                     resp += '```'
                     await ctx.send(resp)
 
