@@ -81,10 +81,12 @@ class Servers:
                     api = CBSAPI(server.cbsapi)
                     top_ten = await api.ranking()
                     # TODO again, templating is needed here.
-                    top_ten_strings = [f"{player['name']:12} | {int(player['rating'])}" for player in top_ten]
                     resp = f"Top 10 @ {server_name}\n```"
-                    for rank, player_str in enumerate(top_ten_strings, start=1):
-                        resp += f'{rank:2}. {player_str}\n'
+                    rank = 1
+                    for i, player in enumerate(top_ten, start=1):
+                        if player['rating'] != top_ten[i - 2]['rating']:
+                            rank = i
+                        resp += f"{rank:2}. {player['name']:12} | {int(player['rating'])}\n"
                     resp += '```'
                     await ctx.send(resp)
 
