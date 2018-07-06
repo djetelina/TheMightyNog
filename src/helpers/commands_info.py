@@ -44,3 +44,7 @@ servers_top = dict(
     description="Gets top 10 of a server",
     brief="Gets top 10 of a server"
 )
+servers_player = dict(
+    description="Gets game server information about a player",
+    brief="Gets game server information about a player"
+)

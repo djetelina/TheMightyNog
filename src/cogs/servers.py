@@ -1,10 +1,11 @@
 import logging
-from typing import Optional, Union
+from datetime import datetime
+from typing import Union
 
 from aiopg.sa import SAConnection
 from discord.ext import commands
 
-from communication.cbsapi import CBSAPI
+from communication.cbsapi import CBSAPI, PlayerNotFound
 from db.objects import BotUser, BotServers, BotServer
 from helpers import commands_info
 
@@ -63,8 +64,44 @@ class Servers:
         async with ctx.typing():
             async with self.bot.db_engine.acquire() as conn:
                 server = await self.__get_server_check_api(ctx, conn, server_name)
-                await ctx.send("Not implemented yet, sorry :(")
-                return
+                if server is None:
+                    return
+                else:
+                    api = CBSAPI(server.cbsapi)
+                    try:
+                        player_data = await api.player(player)
+                    except PlayerNotFound as _:
+                        await ctx.send(f"Player `{player}` not found")
+                    else:
+                        await ctx.send(f"Player: {player_data['name']}, Rating: {int(player_data['rating'])}")
+
+    @commands.command(**commands_info.servers_player)
+    async def player(self, ctx: commands.Context, player: str, server_name: str='ScrollsGuide'):
+        async with ctx.typing():
+            async with self.bot.db_engine.acquire() as conn:
+                server = await self.__get_server_check_api(ctx, conn, server_name)
+                if server is None:
+                    return
+                else:
+                    api = CBSAPI(server.cbsapi)
+                    try:
+                        player_data = await api.player(player, collection=True, games=True, unlocks=True)
+                    except PlayerNotFound as _:
+                        await ctx.send(f"Player `{player}` not found")
+                    else:
+                        # Seriously I need the template engine like yesterday why didn't I implement it already?
+                        if player_data['last_login']:
+                            last_login = datetime.fromtimestamp(player_data['last_login']).strftime('%d.%m.%y')
+                        else:
+                            last_login = 'never'
+                        await ctx.send(f"Player: {player_data['name']}, Rating: {int(player_data['rating'])}, "
+                                       f"Last online: "
+                                       f"{last_login}, "
+                                       f"Collection (C|U|R): "
+                                       f"{player_data['collection']['commons']}|"
+                                       f"{player_data['collection']['uncommons']}|"
+                                       f"{player_data['collection']['rares']}, "
+                                       f"Games (W/L): {player_data['games']['won'] or 0}/{player_data['games']['lost'] or 0}")
 
     @commands.command(**commands_info.servers_top)
     async def top(self, ctx: commands.Context, server_name: str='ScrollsGuide'):
@@ -72,10 +109,6 @@ class Servers:
             async with self.bot.db_engine.acquire() as conn:
                 server = await self.__get_server_check_api(ctx, conn, server_name)
                 if server is None:
-                    await ctx.send(f"I'm not aware of a server: {server_name}")
-                    return
-                elif server is False:
-                    await ctx.send(f"Server {server_name} doesn't offer ratings api")
                     return
                 else:
                     api = CBSAPI(server.cbsapi)
@@ -90,12 +123,13 @@ class Servers:
 
     async def __get_server_check_api(self, ctx: commands.Context, conn: SAConnection, server_name: str) -> \
             Union[None, bool, BotServer]:
+        # TODO when I'm less lazy let's to check_and_get_api instead...
         servers = await BotServers.load_all(conn, ctx.guild)
         server = servers.get_by_name(server_name)
         if server is None:
-            return None
+            await ctx.send(f"I'm not aware of a server: {server_name}")
         if not server.cbsapi:
-            return False
+            await ctx.send(f"Server {server_name} doesn't offer ratings api")
         else:
             return server
 
