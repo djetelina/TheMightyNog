@@ -15,7 +15,7 @@ class Game:
     async def scroll(self, ctx: commands.Context, *name: str):
         async with ctx.typing():
             try:
-                scroll = await scrollsguide.get_scroll(' '.join(name))
+                scroll = await scrollsguide.get_scroll(' '.join(name), db=self.bot.scrolls_db, names=self.bot.scrolls_names)
             except scrollsguide.ScrollNotFound:
                 await ctx.send("I couldn't find that scroll")
             except scrollsguide.MultipleScrollsFound as e:
