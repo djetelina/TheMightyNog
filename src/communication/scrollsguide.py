@@ -4,7 +4,7 @@ Library for communicating with the scrollsguide API(s)
 import aiohttp
 import json
 from urllib.parse import quote_plus
-
+from typing import Dict, Tuple
 
 class Scroll:
     """Wrapper class for Scroll information coming from the API"""
@@ -103,21 +103,33 @@ class MultipleScrollsFound(Exception):
         return f'Multiple scrolls starting with {self.search_term}: {", ".join(self.scrolls)}'
 
 
-async def get_scroll(name: str) -> Scroll:
-    """Gets information about a scroll"""
+async def get_scrolls() -> Tuple[Dict[str, Scroll], Dict[str, str]]:
+    """Gets information about scrolls"""
     async with aiohttp.ClientSession() as s:
         # I'm sorry for fetching all of them, but the only limiting param is Id and I don't have the dict for that yet
         async with s.get('http://a.scrollsguide.com/scrolls') as resp:
             text = await resp.text()
             data = json.loads(text)
-            backup_scrolls = list()
-            for scroll in data.get('data', []):
-                if scroll['name'].lower() == name.lower():
-                    return Scroll(scroll)
-                elif scroll['name'].lower().startswith(name.lower()):
-                    backup_scrolls.append(scroll)
-            if len(backup_scrolls) == 1:
-                return Scroll(backup_scrolls[0])
-            elif backup_scrolls:
-                raise MultipleScrollsFound(backup_scrolls, name)
+
+            scrolls = {}
+            names   = {}
+            for scroll_data in data.get('data', []):
+                scroll = Scroll(scroll_data)
+                scrolls[scroll._id] = Scroll
+                names[scroll.name.lower()] = scroll._id
+            return scrolls, names
+
+
+def get_scroll(query: str, db: Dict[str, Scroll] = None, names: Dict[str, str] = None) -> Scroll:
+    if db is None or names is None:
+        db, names = get_scrolls()
+    if query.lower() in names.keys():
+        return db[names[query]]
+    else:
+        matches = [db[id] for scroll_name, id in names.items() if scroll_name.startswith(query)]
+        if len(matches) == 1:
+            return matches[0]
+        elif len(matches) > 1:
+            raise MultipleScrollsFound(matches, query)
+        else:
             raise ScrollNotFound
