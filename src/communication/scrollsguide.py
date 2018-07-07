@@ -4,7 +4,7 @@ Library for communicating with the scrollsguide API(s)
 import aiohttp
 import json
 from urllib.parse import quote_plus
-from typing import Dict, Tuple
+from typing import Any, Dict, Tuple
 from fuzzywuzzy import fuzz
 
 
@@ -105,7 +105,7 @@ class MultipleScrollsFound(Exception):
         return f'Multiple scrolls starting with {self.search_term}: {", ".join(self.scrolls)}'
 
 
-async def get_scrolls() -> Tuple[Dict[str, Scroll], Dict[str, str]]:
+async def get_scrolls() -> Tuple[Dict[Any, Scroll], Dict[str, Any]]:
     """Gets information about scrolls"""
     async with aiohttp.ClientSession() as s:
         # I'm sorry for fetching all of them, but the only limiting param is Id and I don't have the dict for that yet
@@ -117,12 +117,12 @@ async def get_scrolls() -> Tuple[Dict[str, Scroll], Dict[str, str]]:
             names   = {}
             for scroll_data in data.get('data', []):
                 scroll = Scroll(scroll_data)
-                scrolls[scroll._id] = Scroll
+                scrolls[scroll._id] = scroll
                 names[scroll.name.lower()] = scroll._id
             return scrolls, names
 
 
-def get_scroll(query: str, threshold: float = 0.7, db: Dict[str, Scroll] = None, names: Dict[str, str] = None)-> Scroll:
+def get_scroll(query: str, threshold: float = 0.7, db: Dict[Any, Scroll] = None, names: Dict[str, Any] = None)-> Scroll:
     query = query.lower()
     if db is None or names is None:
         db, names = get_scrolls()
