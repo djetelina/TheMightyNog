@@ -13,7 +13,7 @@ class ScrollNotFound(Exception):
 
 class MultipleScrollsFound(Exception):
     def __init__(self, scrolls, search_term):
-        self.scrolls = [scroll['name'] for scroll in scrolls]
+        self.scrolls = [scroll.name for scroll in scrolls]
         self.search_term = search_term
 
     def __str__(self):
