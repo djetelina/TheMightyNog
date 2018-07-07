@@ -90,7 +90,6 @@ class Servers:
                     except PlayerNotFound as _:
                         await ctx.send(f"Player `{player}` not found")
                     else:
-                        # Seriously I need the template engine like yesterday why didn't I implement it already?
                         if player_data['last_login']:
                             last_login = human(player_data['last_login'], precision=1)
                         else:
