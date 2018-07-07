@@ -5,6 +5,8 @@ import aiohttp
 import json
 from urllib.parse import quote_plus
 from typing import Dict, Tuple
+from fuzzywuzzy import fuzz
+
 
 class Scroll:
     """Wrapper class for Scroll information coming from the API"""
@@ -120,16 +122,25 @@ async def get_scrolls() -> Tuple[Dict[str, Scroll], Dict[str, str]]:
             return scrolls, names
 
 
-def get_scroll(query: str, db: Dict[str, Scroll] = None, names: Dict[str, str] = None) -> Scroll:
+def get_scroll(query: str, threshold: float = 0.7, db: Dict[str, Scroll] = None, names: Dict[str, str] = None)-> Scroll:
+    query = query.lower()
     if db is None or names is None:
         db, names = get_scrolls()
-    if query.lower() in names.keys():
+    if query in names.keys():
         return db[names[query]]
     else:
-        matches = [db[id] for scroll_name, id in names.items() if scroll_name.startswith(query)]
-        if len(matches) == 1:
-            return matches[0]
-        elif len(matches) > 1:
-            raise MultipleScrollsFound(matches, query)
-        else:
-            raise ScrollNotFound
+        # do a fuzzy search
+        name_scores = {}
+        for scroll_name, id in names.items():
+            score = round(fuzz.partial_ratio(query, scroll_name), 2)
+            if score >= threshold:
+                name_scores[id] = score
+            # Only select top items from the list
+            max_score = max(name_scores.values())
+            closest_items = [id for id, score in name_scores.items() if score == max_score]
+            if len(closest_items) == 1:
+                return db[closest_items[0]]
+            elif len(closest_items) > 1:
+                raise MultipleScrollsFound([db[id] for id in closest_items], query)
+            else:
+                raise ScrollNotFound
