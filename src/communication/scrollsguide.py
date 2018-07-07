@@ -4,12 +4,29 @@ Library for communicating with the scrollsguide API(s)
 import aiohttp
 import json
 from urllib.parse import quote_plus
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, Tuple, Type
 from fuzzywuzzy import fuzz
 
+class ScrollNotFound(Exception):
+    pass
+
+
+class MultipleScrollsFound(Exception):
+    def __init__(self, scrolls, search_term):
+        self.scrolls = [scroll['name'] for scroll in scrolls]
+        self.search_term = search_term
+
+    def __str__(self):
+        if len(self.scrolls) > 5:
+            return f"Too many scrolls start with {self.search_term}"
+        return f'Multiple scrolls starting with {self.search_term}: {", ".join(self.scrolls)}'
 
 class Scroll:
     """Wrapper class for Scroll information coming from the API"""
+
+    _scrolls_db = None
+    _scrolls_names = None
+
     def __init__(self, json_data: dict) -> None:
         self._id = json_data['id']
         self._name = json_data['name']
@@ -89,58 +106,42 @@ class Scroll:
     def kind(self) -> str:
         return self._kind.capitalize()
 
+    @classmethod
+    async def load_scrolls(cls: Type['Scroll']) -> None:
+        """Gets information about scrolls"""
+        async with aiohttp.ClientSession() as s:
+            async with s.get('http://a.scrollsguide.com/scrolls') as resp:
+                text = await resp.text()
+                data = json.loads(text)
+                cls._scrolls_db = {}
+                cls._scrolls_names = {}
+                for scroll_data in data.get('data', []):
+                    scroll = Scroll(scroll_data)
+                    cls._scrolls_db[scroll._id] = scroll
+                    cls._scrolls_names[scroll.name.lower()] = scroll._id
 
-class ScrollNotFound(Exception):
-    pass
-
-
-class MultipleScrollsFound(Exception):
-    def __init__(self, scrolls, search_term):
-        self.scrolls = [scroll['name'] for scroll in scrolls]
-        self.search_term = search_term
-
-    def __str__(self):
-        if len(self.scrolls) > 5:
-            return f"Too many scrolls start with {self.search_term}"
-        return f'Multiple scrolls starting with {self.search_term}: {", ".join(self.scrolls)}'
-
-
-async def get_scrolls() -> Tuple[Dict[Any, Scroll], Dict[str, Any]]:
-    """Gets information about scrolls"""
-    async with aiohttp.ClientSession() as s:
-        # I'm sorry for fetching all of them, but the only limiting param is Id and I don't have the dict for that yet
-        async with s.get('http://a.scrollsguide.com/scrolls') as resp:
-            text = await resp.text()
-            data = json.loads(text)
-
-            scrolls = {}
-            names   = {}
-            for scroll_data in data.get('data', []):
-                scroll = Scroll(scroll_data)
-                scrolls[scroll._id] = scroll
-                names[scroll.name.lower()] = scroll._id
-            return scrolls, names
-
-
-def get_scroll(query: str, threshold: float = 0.7, db: Dict[Any, Scroll] = None, names: Dict[str, Any] = None)-> Scroll:
-    query = query.lower()
-    if db is None or names is None:
-        db, names = get_scrolls()
-    if query in names.keys():
-        return db[names[query]]
-    else:
-        # do a fuzzy search
-        name_scores = {}
-        for scroll_name, id in names.items():
-            score = round(fuzz.partial_ratio(query, scroll_name), 2)
-            if score >= threshold:
-                name_scores[id] = score
-            # Only select top items from the list
-            max_score = max(name_scores.values())
-            closest_items = [id for id, score in name_scores.items() if score == max_score]
-            if len(closest_items) == 1:
-                return db[closest_items[0]]
-            elif len(closest_items) > 1:
-                raise MultipleScrollsFound([db[id] for id in closest_items], query)
-            else:
-                raise ScrollNotFound
+    @classmethod
+    async def get(cls: Type['Scroll'], query: str, threshold: float = 0.7) -> 'Scroll':
+        query = query.lower()
+        if cls._scrolls_db is None or cls._scrolls_names is None:
+            # Lazy initialization
+            await cls.load_scrolls()
+        if query in cls._scrolls_names.keys():
+            return cls._scrolls_db[cls._scrolls_names[query]]
+        else:
+            # do a fuzzy search
+            name_scores = {}
+            for scroll_name, id in cls._scrolls_names.items():
+                # 0.995 and 1.000 are really the same for grouping
+                score = round(fuzz.partial_ratio(query, scroll_name), 2)
+                if score >= threshold:
+                    name_scores[id] = score
+                # Only select top items from the list
+                max_score = max(name_scores.values())
+                closest_items = [id for id, score in name_scores.items() if score == max_score]
+                if len(closest_items) == 1:
+                    return cls._scrolls_db[closest_items[0]]
+                elif len(closest_items) > 1:
+                    raise MultipleScrollsFound([cls._scrolls_db[id] for id in closest_items], query)
+                else:
+                    raise ScrollNotFound

@@ -10,7 +10,6 @@ from aiopg.sa.result import ResultProxy, RowProxy
 from discord.ext import commands
 from jinja2 import FileSystemLoader, Environment
 from prometheus_client import Summary, Counter
-from communication import scrollsguide
 
 latency = Summary('command_latency_ms', 'Latency of a command in ms')
 command_count = Counter('commands_invoked', 'How many times a command was invoked', ['guild', 'channel', 'command_name'])
@@ -23,7 +22,6 @@ class MightyNog(commands.Bot):
         self.db_engine = None  # type: Optional[sa.Engine]
         asyncio.get_event_loop().run_until_complete(self.create_engine())
         self.templating = self.__init_templating()
-        self.scrolls_db, self.scrolls_names = scrollsguide.get_scrolls()
         super().__init__(*args, **kwargs)
 
     async def on_command(self, ctx: commands.Context) -> None:
