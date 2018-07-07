@@ -101,7 +101,7 @@ class Servers:
                         embed.add_field(name='Achievements', value=player_data['unlocks']['achievements'])
                         embed.add_field(name='Commons', value=player_data['collection']['commons'])
                         embed.add_field(name='Uncommons', value=player_data['collection']['uncommons'])
-                        embed.add_field(name='Rares', value=player_data['collection']['uncommons'])
+                        embed.add_field(name='Rares', value=player_data['collection']['rares'])
                         embed.add_field(name='Games won', value=player_data['games']['won'])
                         embed.add_field(name='Games lost', value=player_data['games']['lost'])
                         await ctx.send(embed=embed)
