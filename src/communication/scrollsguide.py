@@ -18,8 +18,8 @@ class MultipleScrollsFound(Exception):
 
     def __str__(self):
         if len(self.scrolls) > 5:
-            return f"Too many scrolls start with {self.search_term}"
-        return f'Multiple scrolls starting with {self.search_term}: {", ".join(self.scrolls)}'
+            return f"Too many scrolls matches your query '{self.search_term}'"
+        return f"Multiple scrolls match '{self.search_term}'z: {', '.join(self.scrolls)}"
 
 class Scroll:
     """Wrapper class for Scroll information coming from the API"""
@@ -107,7 +107,7 @@ class Scroll:
         return self._kind.capitalize()
 
     @classmethod
-    async def load_scrolls(cls: Type['Scroll']) -> None:
+    async def __load_scrolls(cls: Type['Scroll']) -> None:
         """Gets information about scrolls"""
         async with aiohttp.ClientSession() as s:
             async with s.get('http://a.scrollsguide.com/scrolls') as resp:
@@ -121,11 +121,11 @@ class Scroll:
                     cls._scrolls_names[scroll.name.lower()] = scroll._id
 
     @classmethod
-    async def get(cls: Type['Scroll'], query: str, threshold: float = 0.7) -> 'Scroll':
+    async def get_by_name(cls: Type['Scroll'], query: str, threshold: float = 0.7) -> 'Scroll':
         query = query.lower()
         if cls._scrolls_db is None or cls._scrolls_names is None:
             # Lazy initialization
-            await cls.load_scrolls()
+            await cls.__load_scrolls()
         if query in cls._scrolls_names.keys():
             return cls._scrolls_db[cls._scrolls_names[query]]
         else:
@@ -136,12 +136,12 @@ class Scroll:
                 score = round(fuzz.partial_ratio(query, scroll_name), 2)
                 if score >= threshold:
                     name_scores[id] = score
-                # Only select top items from the list
-                max_score = max(name_scores.values())
-                closest_items = [id for id, score in name_scores.items() if score == max_score]
-                if len(closest_items) == 1:
-                    return cls._scrolls_db[closest_items[0]]
-                elif len(closest_items) > 1:
-                    raise MultipleScrollsFound([cls._scrolls_db[id] for id in closest_items], query)
-                else:
-                    raise ScrollNotFound
+            # Only select top items from the list
+            max_score = max(name_scores.values())
+            closest_items = [id for id, score in name_scores.items() if score == max_score]
+            if len(closest_items) == 1:
+                return cls._scrolls_db[closest_items[0]]
+            elif len(closest_items) > 1:
+                raise MultipleScrollsFound([cls._scrolls_db[id] for id in closest_items], query)
+            else:
+                raise ScrollNotFound
