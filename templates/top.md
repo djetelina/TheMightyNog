@@ -1,10 +1,10 @@
-{%- set rank = 1 -%}
+{%- set ns = namespace(rank=1) -%}
 Top 10 @ {{server_name}}
 ```
 {%- for player in top_ten -%}
     {%- if player.rating != top_ten[loop.index-2].rating -%}
-        {%- set rank = loop.index -%}
+        {%- set ns.rank = loop.index -%}
     {%- endif -%}
-{{ "%2s" | format(rank,) }}. {{ "%12s" | format(player.name) }} | {{ player.rating | int }}
+{{ "%2s" | format(ns.rank,) }}. {{ "%12s" | format(player.name) }} | {{ player.rating | int }}
 {% endfor -%}
 ```

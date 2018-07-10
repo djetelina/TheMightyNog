@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "078d2d61bd7fa71e3916fced1d7e672eeb79c0ff0749663f3ef7b1d6254ed16f"
+            "sha256": "3a6d6466f4afd587c1d746ae3b624cc8c1b208a38279afd7c9e51f1131b4c260"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -35,6 +35,14 @@
             "git": "https://github.com/Rapptz/discord.py.git",
             "ref": "ec3435b22418d36a01c04d2098a70d71844a4c87"
         },
+        "fuzzywuzzy": {
+            "hashes": [
+                "sha256:d40c22d2744dff84885b30bbfc07fab7875f641d070374331777a4d1808b8d4e",
+                "sha256:ecf490216fb4d76b558a03042ff8f45a8782f17326caca1384d834cbaa2c7e6f"
+            ],
+            "index": "pypi",
+            "version": "==0.16.0"
+        },
         "jinja2": {
             "hashes": [
                 "sha256:74c935a1b8bb9a3947c50a54766a969d4846290e1e788ea44c1392163723c3bd",
@@ -51,10 +59,10 @@
         },
         "prometheus-client": {
             "hashes": [
-                "sha256:d96472e43bb49b10ec748b59014af122048ff7c5c2528994683e4783250865e4"
+                "sha256:69494dc1ac967c0f626c8193e439755c2b95dd4ed22ef31c277601778a50c7ff"
             ],
             "index": "pypi",
-            "version": "==0.2.0"
+            "version": "==0.3.0"
         },
         "psycopg2": {
             "hashes": [

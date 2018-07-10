@@ -19,7 +19,8 @@ class MultipleScrollsFound(Exception):
     def __str__(self):
         if len(self.scrolls) > 5:
             return f"Too many scrolls matches your query '{self.search_term}'"
-        return f"Multiple scrolls match '{self.search_term}'z: {', '.join(self.scrolls)}"
+        return f"Multiple scrolls match '{self.search_term}': {', '.join(self.scrolls)}"
+
 
 class Scroll:
     """Wrapper class for Scroll information coming from the API"""
