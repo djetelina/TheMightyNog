@@ -4,7 +4,7 @@ Library for communicating with the scrollsguide API(s)
 import aiohttp
 import json
 from urllib.parse import quote_plus
-from typing import Any, Dict, Tuple, Type
+from typing import Type
 from fuzzywuzzy import fuzz
 
 class ScrollNotFound(Exception):
@@ -25,7 +25,6 @@ class Scroll:
     """Wrapper class for Scroll information coming from the API"""
 
     _scrolls_db = None
-    _scrolls_names = None
 
     def __init__(self, json_data: dict) -> None:
         self._id = json_data['id']
@@ -114,34 +113,33 @@ class Scroll:
                 text = await resp.text()
                 data = json.loads(text)
                 cls._scrolls_db = {}
-                cls._scrolls_names = {}
                 for scroll_data in data.get('data', []):
                     scroll = Scroll(scroll_data)
-                    cls._scrolls_db[scroll._id] = scroll
-                    cls._scrolls_names[scroll.name.lower()] = scroll._id
+                    cls._scrolls_db[scroll.name.lower()] = scroll
 
     @classmethod
     async def get_by_name(cls: Type['Scroll'], query: str, threshold: float = 0.7) -> 'Scroll':
+        """Get scroll object by name"""
         query = query.lower()
-        if cls._scrolls_db is None or cls._scrolls_names is None:
+        if cls._scrolls_db is None:
             # Lazy initialization
             await cls.__load_scrolls()
-        if query in cls._scrolls_names.keys():
-            return cls._scrolls_db[cls._scrolls_names[query]]
+        if query in cls._scrolls_db.keys():
+            return cls._scrolls_db[query]
         else:
             # do a fuzzy search
             name_scores = {}
-            for scroll_name, id in cls._scrolls_names.items():
+            for scroll_name in cls._scrolls_db.keys():
                 # 0.995 and 1.000 are really the same for grouping
                 score = round(fuzz.partial_ratio(query, scroll_name), 2)
                 if score >= threshold:
-                    name_scores[id] = score
+                    name_scores[scroll_name] = score
             # Only select top items from the list
             max_score = max(name_scores.values())
-            closest_items = [id for id, score in name_scores.items() if score == max_score]
+            closest_items = [scroll_name for scroll_name, score in name_scores.items() if score == max_score]
             if len(closest_items) == 1:
                 return cls._scrolls_db[closest_items[0]]
             elif len(closest_items) > 1:
-                raise MultipleScrollsFound([cls._scrolls_db[id] for id in closest_items], query)
+                raise MultipleScrollsFound([cls._scrolls_db[scroll_name] for scroll_name in closest_items], query)
             else:
                 raise ScrollNotFound
