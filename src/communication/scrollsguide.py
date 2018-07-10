@@ -5,7 +5,9 @@ import aiohttp
 import json
 from urllib.parse import quote_plus
 from typing import Type
+
 from fuzzywuzzy import fuzz
+
 
 class ScrollNotFound(Exception):
     pass
