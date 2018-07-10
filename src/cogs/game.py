@@ -11,11 +11,11 @@ class Game:
     def __init__(self, bot: commands.bot.Bot):
         self.bot = bot
 
-    @commands.command(decsription="Get info about a scroll", brief="Get info about a scroll")
+    @commands.command(description="Get info about a scroll", brief="Get info about a scroll")
     async def scroll(self, ctx: commands.Context, *name: str):
         async with ctx.typing():
             try:
-                scroll = await scrollsguide.get_scroll(' '.join(name))
+                scroll = await scrollsguide.Scroll.get_by_name(' '.join(name))
             except scrollsguide.ScrollNotFound:
                 await ctx.send("I couldn't find that scroll")
             except scrollsguide.MultipleScrollsFound as e:

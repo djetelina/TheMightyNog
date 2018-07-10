@@ -10,6 +10,7 @@ sqlalchemy = "*"
 prometheus-client = "*"
 "jinja2" = "*"
 ago = "*"
+fuzzywuzzy = "*"
 
 [dev-packages]
 

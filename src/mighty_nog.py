@@ -11,7 +11,6 @@ from discord.ext import commands
 from jinja2 import FileSystemLoader, Environment
 from prometheus_client import Summary, Counter
 
-
 latency = Summary('command_latency_ms', 'Latency of a command in ms')
 command_count = Counter('commands_invoked', 'How many times a command was invoked', ['guild', 'channel', 'command_name'])
 failed_command_count = Counter('failed_command_count', 'How many times a command failed unexpectedly')
