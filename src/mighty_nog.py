@@ -4,7 +4,6 @@ import pathlib
 import time
 from typing import Optional
 
-from ago import human
 from aiopg import sa
 from aiopg.sa.result import ResultProxy, RowProxy
 from discord.ext import commands
@@ -59,6 +58,6 @@ class MightyNog(commands.Bot):
         logging.info('Connected to database')
 
     def __init_templating(self) -> Environment:
-        loader = FileSystemLoader(searchpath=[pathlib.Path(__file__).resolve().parent.parent / 'templates'])
+        loader = FileSystemLoader(searchpath=str(pathlib.Path(__file__).resolve().parent.parent / 'templates'))
         template_env = Environment(loader=loader)
         return template_env

@@ -3,7 +3,7 @@ import logging
 from aiopg.sa import SAConnection
 from discord.ext import commands
 
-from db.objects import BotUser, UnknownConsentReply
+from communication.db.objects import BotUser, UnknownConsentReply
 from helpers import commands_info
 from mighty_nog import MightyNog
 

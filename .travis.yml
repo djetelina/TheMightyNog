@@ -1,0 +1,13 @@
+os:
+- linux
+sudo: false
+language: python
+python:
+- "3.6"
+install:
+- pip install pipenv
+- pipenv install --dev
+script:
+  - pipenv check .
+  - pipenv run flake8 .
+  - pipenv run mypy src --ignore-missing-imports --strict-optional

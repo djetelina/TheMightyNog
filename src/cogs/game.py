@@ -8,7 +8,7 @@ from communication import scrollsguide
 
 
 class Game:
-    def __init__(self, bot: commands.bot.Bot):
+    def __init__(self, bot: commands.bot.Bot) -> None:
         self.bot = bot
 
     @commands.command(description="Get info about a scroll", brief="Get info about a scroll")

@@ -27,7 +27,7 @@ class MultipleScrollsFound(Exception):
 class Scroll:
     """Wrapper class for Scroll information coming from the API"""
 
-    _scrolls_db = None
+    _scrolls_db = None  # type: dict
 
     def __init__(self, json_data: dict) -> None:
         self._id = json_data['id']
@@ -66,6 +66,7 @@ class Scroll:
             return f'<:Decay:320829724085583874> {self._decay_cost}'
         if self._energy_cost:
             return f'<:Energy:320830049039417344> {self._energy_cost}'
+        return 'Unknown resource'
 
     @property
     def attack(self) -> str:

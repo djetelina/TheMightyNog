@@ -3,13 +3,15 @@ Commands for developers
 """
 import logging
 
+from discord import Embed
 from discord.ext import commands
 
+from mighty_nog import MightyNog
 from settings import devs
 
 
 class Dev:
-    def __init__(self, bot):
+    def __init__(self, bot: MightyNog) -> None:
         self.bot = bot
 
     async def __local_check(self, ctx: commands.Context):
@@ -51,6 +53,13 @@ class Dev:
                 logging.exception(f"Couldn't unload module: {module}")
             else:
                 await ctx.send("Done!")
+
+    @commands.command(hidden=True)
+    async def status(self, ctx: commands.Context):
+        async with ctx.typing():
+            embed = Embed(title='Bot status', description='connectivity, latencies and such things')
+            embed.add_field(name='Websocket latency', value=self.bot.latency)
+            await ctx.send(embed=embed)
 
 
 def setup(bot):

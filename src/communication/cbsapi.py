@@ -12,7 +12,7 @@ class PlayerNotFound(CBSAPIException):
 
 
 class CBSAPI:
-    def __init__(self, address: str):
+    def __init__(self, address: str) -> None:
         self.address = address.rstrip("/")
 
     async def ranking(self):
@@ -48,4 +48,3 @@ class CBSAPI:
                     raise PlayerNotFound
                 else:
                     raise CBSAPIException(json_data['description'])
-

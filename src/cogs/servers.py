@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, Optional
 
 from ago import human
 from aiopg.sa import SAConnection
@@ -6,13 +6,13 @@ from discord import Embed
 from discord.ext import commands
 
 from communication.cbsapi import CBSAPI, PlayerNotFound
-from db.objects import BotUser, BotServers, BotServer
+from communication.db.objects import BotUser, BotServers, BotServer
 from helpers import commands_info
 from mighty_nog import MightyNog
 
 
 class Servers:
-    def __init__(self, bot: MightyNog):
+    def __init__(self, bot: MightyNog) -> None:
         self.bot = bot
 
     @commands.group(**commands_info.servers_servers)
@@ -121,14 +121,16 @@ class Servers:
                     await ctx.send(resp)
 
     async def __get_server_check_api(self, ctx: commands.Context, conn: SAConnection, server_name: str) -> \
-            Union[None, bool, BotServer]:
+            Optional[BotServer]:
         # TODO when I'm less lazy let's to check_and_get_api instead...
         servers = await BotServers.load_all(conn, ctx.guild)
         server = servers.get_by_name(server_name)
         if server is None:
             await ctx.send(f"I'm not aware of a server: {server_name}")
-        if not server.cbsapi:
+            return None
+        elif server.cbsapi is None:
             await ctx.send(f"Server {server_name} doesn't offer ratings api")
+            return None
         else:
             return server
 

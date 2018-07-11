@@ -1,4 +1,3 @@
-import logging
 from typing import List, Optional
 
 import sqlalchemy
@@ -7,11 +6,11 @@ from aiopg.sa.result import RowProxy
 from discord import Guild
 from sqlalchemy import func
 
-from db import tables
+from communication.db import tables
 
 
 class BotServers:
-    def __init__(self, servers: List['BotServer']):
+    def __init__(self, servers: List['BotServer']) -> None:
         self.servers = servers
 
     @classmethod
@@ -31,14 +30,16 @@ class BotServers:
                f'{servers}\n' \
                f'```'
 
-    def get_by_name(self, server_name) -> 'BotServer':
+    def get_by_name(self, server_name) -> Optional['BotServer']:
         for server in self.servers:
             if server.name.lower() == server_name.lower():
                 return server
+        return None
 
 
 class BotServer:
-    def __init__(self, name: str, address: str, owner: int, cbsapi: Optional[str]=None, owner_name: Optional[str]=None):
+    def __init__(self, name: str, address: str, owner: int,
+                 cbsapi: Optional[str]=None, owner_name: Optional[str]=None) -> None:
         self._name = name
         self._address = address
         self._owner = owner
@@ -73,7 +74,7 @@ class BotServer:
         return await cls.from_row_proxy(row) if row is not None else None
 
     @property
-    def cbsapi(self) -> str:
+    def cbsapi(self) -> Optional[str]:
         return self._cbsapi
 
     @property
