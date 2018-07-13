@@ -48,3 +48,8 @@ servers_player = dict(
     description="Gets game server information about a player",
     brief="Gets game server information about a player"
 )
+
+generic_patreon = dict(
+    description="URL of ScrollsGuide patreon page",
+    brief='URL of ScrollsGuide patreon page'
+)
