@@ -25,15 +25,15 @@
         },
         "aiopg": {
             "hashes": [
-                "sha256:7dee52e0fa4697bace62d39180df96e94a328ee96aa211c8e93c346b8ffd1bcc",
-                "sha256:a6a4c41938bb177e583c43cf47e2179e5822d3c175d5a99b165945eb4fba12ea"
+                "sha256:2fa57bee0b7b8422408a79de085c3423e0b0633be3a0046b66a53594bf69a837",
+                "sha256:509d4a1ad9fa1af5dca6d547b759a8cbcfd70d6cedd0737cb3ff4ccfec812ea2"
             ],
             "index": "pypi",
-            "version": "==0.14.0"
+            "version": "==0.15.0"
         },
         "discord.py": {
             "git": "https://github.com/Rapptz/discord.py.git",
-            "ref": "ec3435b22418d36a01c04d2098a70d71844a4c87"
+            "ref": "8ccb98d395537b1c9acc187e1647dfdd07bb831b"
         },
         "fuzzywuzzy": {
             "hashes": [
