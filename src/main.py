@@ -41,7 +41,8 @@ bot = MightyNog(
     command_prefix=os.getenv('NOG_CMD_PREFIX', '!'),
     description=commands_info.main,
     pm_help=True,
-    db=os.environ['NOG_DB_DSN']
+    db=os.environ['NOG_DB_DSN'],
+    sg_password=os.environ['NOG_SG_PASSWORD']
 )
 
 
