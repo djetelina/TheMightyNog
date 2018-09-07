@@ -4,7 +4,7 @@ import json
 import logging
 import pathlib
 import time
-from typing import Optional, Tuple
+from typing import Optional
 
 from aiopg import sa
 from aiopg.sa.result import ResultProxy, RowProxy
@@ -16,6 +16,7 @@ from prometheus_client import Summary, Counter
 latency = Summary('command_latency_ms', 'Latency of a command in ms')
 command_count = Counter('commands_invoked', 'How many times a command was invoked', ['guild', 'channel', 'command_name'])
 failed_command_count = Counter('failed_command_count', 'How many times a command failed unexpectedly')
+sg_chat = Counter('sg_chat', 'How many times a message was relayed to and from sg chat', ['destination'])
 
 
 class MightyNog(commands.Bot):
@@ -61,7 +62,7 @@ class MightyNog(commands.Bot):
                 'roomName': 'general-1'
             }
             self.sg_game_writer.write(json.dumps(send_msg).encode())
-            await message.add_reaction('✔')
+            sg_chat.labels('ScrollsGuide').inc()
 
     async def on_ready(self):
         asyncio.ensure_future(self.__listen_to_sg_chat())
@@ -132,6 +133,7 @@ class MightyNog(commands.Bot):
                 incoming_json = json.loads(incoming_msg.decode())
                 if incoming_json.get('msg') == 'RoomChatMessage' and incoming_json['from'] not in ('TheMightyNog', 'System'):
                     await gen_1.send(f"**{incoming_json['from']}:** {incoming_json['text']}")
+                    sg_chat.labels('Discord').inc()
 
     async def __keep_pinging_sg(self, writer: asyncio.StreamWriter):
         """So we don't disconnect"""
