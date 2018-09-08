@@ -13,6 +13,8 @@ from discord.ext import commands
 from jinja2 import FileSystemLoader, Environment
 from prometheus_client import Summary, Counter
 
+from communication.cb_server import CBServer
+
 latency = Summary('command_latency_ms', 'Latency of a command in ms')
 command_count = Counter('commands_invoked', 'How many times a command was invoked', ['guild', 'channel', 'command_name'])
 failed_command_count = Counter('failed_command_count', 'How many times a command failed unexpectedly')
@@ -26,7 +28,12 @@ class MightyNog(commands.Bot):
         self.db_engine = None  # type: Optional[sa.Engine]
         asyncio.get_event_loop().run_until_complete(self.create_engine())
         self.templating = self.__init_templating()
-        self.__sg_connected = False  # type: bool
+        self.cb_server = CBServer(
+            address='play.scrollsguide.com',
+            port=8081,
+            username='Discord',
+            password=self.__sg_password
+        )
         super().__init__(*args, **kwargs)
 
     async def on_command(self, ctx: commands.Context) -> None:
@@ -55,21 +62,33 @@ class MightyNog(commands.Bot):
             failed_command_count.inc()
 
     async def on_message(self, message: Message):
-        if message.channel.id == 487693801373040640 and message.author.id != self.user.id:
-            send_msg = {
-                'msg': 'RoomChatMessage',
-                'text': f'{message.author.display_name}@Nognest: {message.content}',
-                'roomName': 'general-1'
-            }
-            self.sg_game_writer.write(json.dumps(send_msg).encode())
-            await self.sg_game_writer.drain()
+        if message.channel.id == 487693801373040640 and message.author.id != self.user.id and self.cb_server.connected:
+            await self.cb_server.message_room('general-1', f'{message.author.display_name}: {message.content}')
             sg_chat.labels('ScrollsGuide').inc()
         else:
             await super(MightyNog, self).on_message(message)
 
+    async def on_cb_message(self, data):
+        # TODO meh hardcoded
+        connected_channel = self.get_channel(487693801373040640)
+        if data['from'] not in ('Discord', 'System'):
+            await connected_channel.send(f"**{data['from']}:** {data['text']}")
+            sg_chat.labels('Discord').inc()
+
+    async def on_cb_room_info(self, data):
+        # TODO meh hardcoded and repeating
+        connected_channel = self.get_channel(487693801373040640)
+        if data.get('updated'):
+            await connected_channel.send(f"*{', '.join([x['name'] for x in data['updated']])} joined*")
+        if data.get('removed'):
+            await connected_channel.send(f"*{', '.join([x['name'] for x in data['removed']])} left*")
+
     async def on_ready(self):
-        if not self.__sg_connected:
-            asyncio.get_event_loop().create_task(self.__listen_to_sg_chat())
+        if not self.cb_server.connected:
+            await self.cb_server.connect()
+            self.cb_server.handlers['RoomChatMessage'] = self.on_cb_message
+            self.cb_server.handlers['RoomInfo'] = self.on_cb_room_info
+            asyncio.ensure_future(self.cb_server.listen())
 
     async def create_engine(self):
         self.db_engine = await sa.create_engine(dsn=self.__db_dsn)
@@ -84,67 +103,3 @@ class MightyNog(commands.Bot):
         loader = FileSystemLoader(searchpath=str(pathlib.Path(__file__).resolve().parent.parent / 'templates'))
         template_env = Environment(loader=loader)
         return template_env
-
-    async def __listen_to_sg_chat(self) -> None:
-        # TODO this should be split somewhere else and abstracted etc but I just want it done
-        msg_limit = 2 ** 32  # just to be safe, on connection fairly huge chunks are sent
-        reader, writer = await asyncio.open_connection('play.scrollsguide.com', 8081, limit=msg_limit)
-        self.sg_game_writer = writer
-        logging.info("Connected to SG game server")
-
-        # Hash our password
-        salt = 'ScrollsClientSalt5438_'
-        sha_password = hashlib.sha256()
-        sha_password.update(str(salt + self.__sg_password).encode('UTF-16LE'))
-        password = sha_password.hexdigest()
-        del sha_password
-
-        sha_auth_hash = hashlib.sha256()
-        sha_auth_hash.update(b'TheMightyNog')
-        auth_hash = sha_auth_hash.hexdigest()
-
-        login_msg = json.dumps({
-            'email': 'TheMightyNog',
-            'password': password,
-            'authHash': auth_hash,
-            'msg': 'FirstConnect'
-        }).encode()
-
-        writer.write(login_msg)
-        await writer.drain()
-        while True:
-            incoming_msg = json.loads((await reader.readuntil(b'\n\n')).decode())
-            if incoming_msg.get('op') == 'FirstConnect' and incoming_msg.get('msg') == 'Ok':
-                break
-        logging.info("Logged in to SG game server")
-
-        enter_general_msg = json.dumps({
-            'msg': 'RoomEnter',
-            'roomName': 'general-1'
-        }).encode()
-        writer.write(enter_general_msg)
-        await writer.drain()
-
-        gen_1 = self.get_channel(487693801373040640)
-
-        asyncio.ensure_future(self.__keep_pinging_sg(writer))
-        while True:
-            try:
-                incoming_msg = await reader.readuntil(b'\n\n')
-            except asyncio.streams.IncompleteReadError:
-                self.__sg_connected = False
-                logging.exception("Connection to SG game server interrupted :(")
-                break
-            else:
-                incoming_json = json.loads(incoming_msg.decode())
-                if incoming_json.get('msg') == 'RoomChatMessage' and incoming_json['from'] not in ('TheMightyNog', 'System'):
-                    await gen_1.send(f"**{incoming_json['from']}:** {incoming_json['text']}")
-                    sg_chat.labels('Discord').inc()
-
-    async def __keep_pinging_sg(self, writer: asyncio.StreamWriter):
-        """So we don't disconnect"""
-        while self.__sg_connected:
-            await asyncio.sleep(1)
-            if self.__sg_connected:
-                writer.write(json.dumps({'msg': 'Ping'}).encode())
-                await writer.drain()
