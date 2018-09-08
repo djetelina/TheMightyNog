@@ -2,7 +2,7 @@ import asyncio
 import hashlib
 import json
 import logging
-from typing import Optional
+from typing import Optional, Any
 
 from prometheus_client import Counter
 
@@ -23,10 +23,10 @@ class CBServer:
         self.username = username
         self.__password = password
         self.reconnect = reconnect
-        self.reader = None  # type: Optional[asyncio.StreamReader]
-        self.writer = None  # type: Optional[asyncio.StreamWriter]
+        self.reader = None  # type: Any
+        self.writer = None  # type: Any
         self.connected = False
-        self.handlers = {}
+        self.handlers = {}  # type: dict
 
     async def connect(self) -> None:
         await self.__connect()
