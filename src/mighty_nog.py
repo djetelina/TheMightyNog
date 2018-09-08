@@ -144,7 +144,7 @@ class MightyNog(commands.Bot):
     async def __keep_pinging_sg(self, writer: asyncio.StreamWriter):
         """So we don't disconnect"""
         while self.__sg_connected:
-            asyncio.sleep(1)
+            await asyncio.sleep(1)
             if self.__sg_connected:
                 writer.write(json.dumps({'msg': 'Ping'}).encode())
                 await writer.drain()
