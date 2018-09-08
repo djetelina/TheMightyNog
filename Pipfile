@@ -11,6 +11,8 @@ prometheus-client = "*"
 "jinja2" = "*"
 ago = "*"
 fuzzywuzzy = "*"
+python-levenshtein = "*"
+"psycopg2-binary" = "*"
 
 [dev-packages]
 mypy = "*"

@@ -62,10 +62,14 @@ class MightyNog(commands.Bot):
                 'roomName': 'general-1'
             }
             self.sg_game_writer.write(json.dumps(send_msg).encode())
+            await self.sg_game_writer.drain()
             sg_chat.labels('ScrollsGuide').inc()
+        else:
+            await super(MightyNog, self).on_message(message)
 
     async def on_ready(self):
-        asyncio.ensure_future(self.__listen_to_sg_chat())
+        if not self.__sg_connected:
+            asyncio.get_event_loop().create_task(self.__listen_to_sg_chat())
 
     async def create_engine(self):
         self.db_engine = await sa.create_engine(dsn=self.__db_dsn)
@@ -107,6 +111,7 @@ class MightyNog(commands.Bot):
         }).encode()
 
         writer.write(login_msg)
+        await writer.drain()
         while True:
             incoming_msg = json.loads((await reader.readuntil(b'\n\n')).decode())
             if incoming_msg.get('op') == 'FirstConnect' and incoming_msg.get('msg') == 'Ok':
@@ -118,6 +123,7 @@ class MightyNog(commands.Bot):
             'roomName': 'general-1'
         }).encode()
         writer.write(enter_general_msg)
+        await writer.drain()
 
         gen_1 = self.get_channel(487693801373040640)
 
