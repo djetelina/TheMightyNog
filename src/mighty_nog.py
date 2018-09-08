@@ -87,7 +87,7 @@ class MightyNog(commands.Bot):
         if not self.cb_server.connected:
             await self.cb_server.connect()
             self.cb_server.handlers['RoomChatMessage'] = self.on_cb_message
-            self.cb_server.handlers['RoomInfo'] = self.on_cb_room_info
+            # self.cb_server.handlers['RoomInfo'] = self.on_cb_room_info
             asyncio.ensure_future(self.cb_server.listen())
 
     async def create_engine(self):
