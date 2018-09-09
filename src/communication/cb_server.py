@@ -2,7 +2,7 @@ import asyncio
 import hashlib
 import json
 import logging
-from typing import Optional, Any
+from typing import Any
 
 from prometheus_client import Counter
 

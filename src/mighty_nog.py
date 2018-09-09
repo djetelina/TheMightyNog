@@ -61,35 +61,6 @@ class MightyNog(commands.Bot):
             logging.exception("Command failed", exc_info=exc)
             failed_command_count.inc()
 
-    async def on_message(self, message: Message):
-        if message.channel.id == 487693801373040640 and message.author.id != self.user.id and self.cb_server.connected:
-            await self.cb_server.message_room('general-1', f'{message.author.display_name}: {message.content}')
-            sg_chat.labels('ScrollsGuide').inc()
-        else:
-            await super(MightyNog, self).on_message(message)
-
-    async def on_cb_message(self, data):
-        # TODO meh hardcoded
-        connected_channel = self.get_channel(487693801373040640)
-        if data['from'] not in ('Discord', 'System'):
-            await connected_channel.send(f"**{data['from']}:** {data['text']}")
-            sg_chat.labels('Discord').inc()
-
-    async def on_cb_room_info(self, data):
-        # TODO meh hardcoded and repeating
-        connected_channel = self.get_channel(487693801373040640)
-        if data.get('updated'):
-            await connected_channel.send(f"*{', '.join([x['name'] for x in data['updated']])} joined*")
-        if data.get('removed'):
-            await connected_channel.send(f"*{', '.join([x['name'] for x in data['removed']])} left*")
-
-    async def on_ready(self):
-        if not self.cb_server.connected:
-            await self.cb_server.connect()
-            self.cb_server.handlers['RoomChatMessage'] = self.on_cb_message
-            # self.cb_server.handlers['RoomInfo'] = self.on_cb_room_info
-            asyncio.ensure_future(self.cb_server.listen())
-
     async def create_engine(self):
         self.db_engine = await sa.create_engine(dsn=self.__db_dsn)
         async with self.db_engine.acquire() as conn:  # type: sa.SAConnection
