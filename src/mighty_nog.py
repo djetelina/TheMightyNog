@@ -32,7 +32,6 @@ class MightyNog(commands.Bot):
             username='Discord',
             password=self.__sg_password
         )
-        self.sentry = Client(kwargs.pop('sentry_url'))
         super().__init__(*args, **kwargs)
 
     async def on_command(self, ctx: commands.Context) -> None:
