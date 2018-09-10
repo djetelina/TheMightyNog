@@ -1,6 +1,4 @@
 import asyncio
-import hashlib
-import json
 import logging
 import pathlib
 import time
@@ -8,10 +6,10 @@ from typing import Optional
 
 from aiopg import sa
 from aiopg.sa.result import ResultProxy, RowProxy
-from discord import Message
 from discord.ext import commands
 from jinja2 import FileSystemLoader, Environment
 from prometheus_client import Summary, Counter
+from raven import Client
 
 from communication.cb_server import CBServer
 
@@ -34,6 +32,7 @@ class MightyNog(commands.Bot):
             username='Discord',
             password=self.__sg_password
         )
+        self.sentry = Client(kwargs.pop('sentry_url'))
         super().__init__(*args, **kwargs)
 
     async def on_command(self, ctx: commands.Context) -> None:
@@ -59,6 +58,7 @@ class MightyNog(commands.Bot):
             await ctx.send(f"You can't do that {ctx.author.mention}!")
         else:
             logging.exception("Command failed", exc_info=exc)
+            self.sentry.captureException(exc_info=exc)
             failed_command_count.inc()
 
     async def create_engine(self):

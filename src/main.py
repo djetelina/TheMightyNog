@@ -42,7 +42,8 @@ bot = MightyNog(
     description=commands_info.main,
     pm_help=True,
     db=os.environ['NOG_DB_DSN'],
-    sg_password=os.environ['NOG_SG_PASSWORD']
+    sg_password=os.environ['NOG_SG_PASSWORD'],
+    sentry_url=os.environ['NOG_SENTRY_URL']
 )
 
 

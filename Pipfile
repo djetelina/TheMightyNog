@@ -13,6 +13,7 @@ ago = "*"
 fuzzywuzzy = "*"
 python-levenshtein = "*"
 "psycopg2-binary" = "*"
+raven = "*"
 
 [dev-packages]
 mypy = "*"
