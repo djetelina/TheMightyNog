@@ -57,7 +57,6 @@ class MightyNog(commands.Bot):
             await ctx.send(f"You can't do that {ctx.author.mention}!")
         else:
             logging.exception("Command failed", exc_info=exc)
-            self.sentry.captureException(exc_info=exc)
             failed_command_count.inc()
 
     async def create_engine(self):
