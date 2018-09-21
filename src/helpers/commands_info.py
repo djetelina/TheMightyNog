@@ -27,6 +27,14 @@ servers_publish = dict(
     brief='Publishes a server for people to browse',
     usage="<server_name> <server_address>"
 )
+
+servers_delete = dict(
+    name='delete',
+    description='Deletes a server from the database.',
+    brief='Deletes a server from the database',
+    usage="<server_name>"
+)
+
 servers_cbsapi = dict(
     name='cbsapi',
     description="Changes whether you are running cbsapi alongside your server\n"

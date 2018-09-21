@@ -37,6 +37,23 @@ class Servers:
                                       "If you are running CBSAPI, please let me know with "
                                       "`!servers cbsapi <your_server_name> on`")
 
+    @servers.command(**commands_info.servers_delete)
+    async def _delete(self, ctx: commands.Context, server_name: str):
+        async with ctx.typing():
+            async with self.bot.db_engine.acquire() as conn:  # type: SAConnection
+                user = await BotUser.from_db(conn, ctx.author.id)
+                if not user.registered:
+                    await ctx.author.send("You are not registered, so it's unlikely that you own a server to delete")
+                    return
+
+                server = await BotServer.from_db(conn, server_name)
+                if server is None:
+                    await ctx.author.send("Server with that name doesn't exist.")
+                if server.owner != ctx.author.id:
+                    await ctx.author.send("You don't own that server.")
+                await server.delete(conn)
+                await ctx.author.send("Your server hos now been forgotten.")
+
     @servers.command(**commands_info.servers_cbsapi)
     async def _cbsapi(self, ctx: commands.Context, server_name: str, api_address: str):
         falsy_args = {'off', 'no', 'disabled', 'disable'}

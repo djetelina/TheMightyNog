@@ -95,6 +95,9 @@ class BotServer:
         ))
         self._cbsapi = api_address
 
+    async def delete(self, conn: SAConnection) -> None:
+        await conn.execute(tables.servers.delete(tables.servers.c.name == self._name))
+
 
 class BotUser:
     def __init__(self, *args, **kwargs):
