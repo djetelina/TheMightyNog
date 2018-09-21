@@ -49,10 +49,13 @@ class Servers:
                 server = await BotServer.from_db(conn, server_name)
                 if server is None:
                     await ctx.author.send("Server with that name doesn't exist.")
+                    return
                 if server.owner != ctx.author.id:
                     await ctx.author.send("You don't own that server.")
+                    return
+
                 await server.delete(conn)
-                await ctx.author.send("Your server hos now been forgotten.")
+                await ctx.author.send("Your server has now been forgotten.")
 
     @servers.command(**commands_info.servers_cbsapi)
     async def _cbsapi(self, ctx: commands.Context, server_name: str, api_address: str):
