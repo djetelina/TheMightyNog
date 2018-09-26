@@ -9,7 +9,6 @@ from aiopg.sa.result import ResultProxy, RowProxy
 from discord.ext import commands
 from jinja2 import FileSystemLoader, Environment
 from prometheus_client import Summary, Counter
-from raven import Client
 
 from communication.cb_server import CBServer
 

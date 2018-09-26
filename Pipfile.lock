@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d8a747bc5977cad091817c7c48fb8195b87904493d34595bbc0315a5e61a5d5c"
+            "sha256": "ac9a11280c357f01b0c59c9b98a9a020e82cf79e00eae104693349d6c6fc07a7"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -33,7 +33,7 @@
         },
         "discord.py": {
             "git": "https://github.com/Rapptz/discord.py.git",
-            "ref": "53433bca4895e6409e36863dc18398d6d911c3af"
+            "ref": "836ae730401ea370aa10127bb9c86854c8b516ac"
         },
         "fuzzywuzzy": {
             "hashes": [
@@ -56,6 +56,14 @@
                 "sha256:a6be69091dac236ea9c6bc7d012beab42010fa914c459791d627dad4910eb665"
             ],
             "version": "==1.0"
+        },
+        "mypy-extensions": {
+            "hashes": [
+                "sha256:37e0e956f41369209a3d5f34580150bcacfabaa57b33a15c0b25f4b5725e0812",
+                "sha256:b16cabe759f55e3409a7d231ebd2841378fb0c27a5d1994719e340e4f429ac3e"
+            ],
+            "index": "pypi",
+            "version": "==0.4.1"
         },
         "prometheus-client": {
             "hashes": [
@@ -156,6 +164,14 @@
             ],
             "index": "pypi",
             "version": "==1.2.12"
+        },
+        "toml": {
+            "hashes": [
+                "sha256:380178cde50a6a79f9d2cf6f42a62a5174febe5eea4126fe4038785f1d888d42",
+                "sha256:a7901919d3e4f92ffba7ff40a9d697e35bbbc8a8049fe8da742f34c83606d957"
+            ],
+            "index": "pypi",
+            "version": "==0.9.6"
         }
     },
     "develop": {
@@ -187,6 +203,7 @@
                 "sha256:37e0e956f41369209a3d5f34580150bcacfabaa57b33a15c0b25f4b5725e0812",
                 "sha256:b16cabe759f55e3409a7d231ebd2841378fb0c27a5d1994719e340e4f429ac3e"
             ],
+            "index": "pypi",
             "version": "==0.4.1"
         },
         "pycodestyle": {

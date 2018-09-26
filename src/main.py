@@ -36,9 +36,10 @@ def setup_logging():
     file_handler.setFormatter(file_formatter)
     log.addHandler(file_handler)
 
-    sentry_handler = SentryHandler(os.environ['NOG_SENTRY_URL'])
-    sentry_handler.setLevel(logging.ERROR)
-    add_sentry_handler(sentry_handler)
+    if os.getenv('NOG_SENTRY_URL'):
+        sentry_handler = SentryHandler(os.environ['NOG_SENTRY_URL'])
+        sentry_handler.setLevel(logging.ERROR)
+        add_sentry_handler(sentry_handler)
 
 
 setup_logging()

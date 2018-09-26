@@ -61,3 +61,20 @@ generic_patreon = dict(
     description="URL of ScrollsGuide patreon page",
     brief='URL of ScrollsGuide patreon page'
 )
+
+artifact_trivia = dict(
+    description='Artifact trivia',
+    brief='Artifact trivia'
+)
+
+artifact_trivia_start = dict(
+    name='start',
+    description='Start a game of trivia',
+    brief='Start a game of trivia'
+)
+
+artifact_trivia_stop = dict(
+    name='stop',
+    description='Stop a running trivia game',
+    brief='Stop a running trivia game'
+)

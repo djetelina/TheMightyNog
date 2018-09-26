@@ -14,6 +14,8 @@ fuzzywuzzy = "*"
 python-levenshtein = "*"
 "psycopg2-binary" = "*"
 raven = "*"
+mypy-extensions = "*"
+toml = "*"
 
 [dev-packages]
 mypy = "*"
