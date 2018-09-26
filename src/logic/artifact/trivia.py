@@ -2,7 +2,7 @@
 import asyncio
 from random import randint
 from time import time
-from typing import List, Optional, Generator
+from typing import List, Optional, AsyncGenerator
 
 from mypy_extensions import TypedDict
 
@@ -17,7 +17,7 @@ class TriviaGame:
         self.__active_question: Optional[TriviaQuestion] = None
         self.__answered = False
 
-    async def play(self) -> Generator[str, None, None]:
+    async def play(self) -> AsyncGenerator[str, None, None]:
         while not self.stopped and self._questions:
             self.__answered = False
             self.__active_question = self._questions.pop(randint(0, len(self._questions) - 1))
