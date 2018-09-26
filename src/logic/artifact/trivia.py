@@ -17,7 +17,7 @@ class TriviaGame:
         self.__active_question: Optional[TriviaQuestion] = None
         self.__answered = False
 
-    async def play(self) -> AsyncGenerator[str, None, None]:
+    async def play(self) -> AsyncGenerator[str, None]:
         while not self.stopped and self._questions:
             self.__answered = False
             self.__active_question = self._questions.pop(randint(0, len(self._questions) - 1))
