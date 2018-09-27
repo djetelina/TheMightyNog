@@ -1,6 +1,30 @@
 questions:
   - question: Base attack of the red hero **Axe**?
     answer: 7
+  - question: Base attack of the red hero **Pugna**?
+    answer: 6
+  - question: Base health of the red hero **Pugna**?
+    answer: 9
+  - question: Base attack of the black hero **Necrophos**?
+    answer: 5
+  - question: Base health of the black hero **Necrophos**?
+    answer: 6
+  - question: Base attack of the blue hero **Meepo**?
+    answer: 4
+  - question: Base health of the blue hero **Meepo**?
+    answer: 5
+  - question: Base attack of the green hero **Lycan**?
+    answer: 4
+  - question: Base health of the green hero **Lycan**?
+    answer: 10
+  - question: Base attack of the blue hero **Ogre Magi**?
+    answer: 3
+  - question: Base health of the blue hero **Ogre Magi**?
+    answer: 7
+  - question: Base attack of the blue hero **Luna**?
+    answer: 3
+  - question: Base health of the blue hero **Luna**?
+    answer: 8
   - question: Base attack of **Savage Wolf**?
     answer: 3
   - question: Base health of **Savage Wolf**?
@@ -17,10 +41,50 @@ questions:
     answer: 6
   - question: How much mana does the blue spell **Cunning Plan** cost?
     answer: 2
+  - question: How much mana does the blue spell **Dimension Portal** cost?
+    answer: 4
+  - question: How much mana does the blue spell **Diabolic Revelation** cost?
+    answer: 1
+  - question: How much mana does the blue spell **Divided We Stand** cost?
+    answer: 4
+  - question: How much mana does the blue spell **Frostbite** cost?
+    answer: 3
+  - question: How much mana does the red spell **Double Edge** cost?
+    answer: 1
+  - question: How much mana does the red spell **Poised to Strike** cost?
+    answer: 1
+  - question: How much mana does the black spell **Grazing Shot** cost?
+    answer: 1
+  - question: How much mana does the black spell **Iron Fog Goldmine** cost?
+    answer: 3
+  - question: How much mana does the green creep **Savage Wolf** cost?
+    answer: 4
+  - question: How much mana does the green creep **Selfish Cleric** cost?
+    answer: 4
+  - question: How much mana does the green creep **Rebel Decoy** cost?
+    answer: 3
+  - question: How much mana does the green creep **Vhoul Martyr** cost?
+    answer: 2
+  - question: How much mana does the green creep **Smeevil Blacksmith** cost?
+    answer: 4
+  - question: How much mana does the black creep **Hound of War** cost?
+    answer: 3
+  - question: How much mana does the red creep **Centaur Hunter** cost?
+    answer: 5
+  - question: How much mana does the red creep **Bronze Legionnaire** cost?
+    answer: 2
+  - question: How much mana does the red creep **Cursed Satyr** cost?
+    answer: 5
+  - question: How much mana does the red creep **Hellbear Cripple** cost?
+    answer: 3
+  - question: How much mana does the red creep **Keenfolk Golem** cost?
+    answer: 6
+  - question: How much mana does the red creep **Legion Standard Bearer** cost?
+    answer: 4
   - question: What is the name of **Axe**'s signature spell?
     answer: Berserker's Call
   - question: What color is the hero **Phantom Assasin** from?
-    answer: black
+    answer: Black
   - question: How much gold does **Blink Dagger** cost?
     answer: 7
   - question: How much gold does **Healing Salve** cost?
@@ -45,9 +109,35 @@ questions:
     answer: 15
   - question: How much gold does **Apotheosis Blade** cost?
     answer: 25
+  - question: How much gold does **Claymore** cost?
+    answer: 15
   - question: "Fill the description for **Hero's Cape**: `Equipped hero has +_ Health.`"
     answer: 16
   - question: "Fill the description for **Traveler's Cloak**: `Equipped hero has +_ Health.`"
     answer: 4
   - question: "Fill the description for **Leather Armor**: `Equipped hero has +_ Armor.`"
     answer: 1
+  - question: "Fill the description for **Foresight**: `Draw _ cards.`"
+    answer: 2
+  - question: "Fill the description for **Poaching Knife**: `Equipped hero has +_ Attack. Get 5 gold after an enemy hero dies. Get 1 gold after an enemy creep dies.`"
+    answer: 2
+  - question: "Fill the description for **Poaching Knife**: `Equipped hero has +2 Attack. Get _ gold after an enemy hero dies. Get 1 gold after an enemy creep dies.`"
+    answer: 5
+  - question: "Fill the description for **Poaching Knife**: `Equipped hero has +2 Attack. Get 5 gold after an enemy hero dies. Get _ gold after an enemy creep dies.`"
+    answer: 1
+  - question: "Name the spell with this text: `Condemn all units.`"
+    answer: Annihilation
+  - question: "Name the spell with this text: `Deal 4 damage to a unit.`"
+    answer: Hip Fire
+  - question: "Name the spell with this text: `Summon three Melee Creeps.`"
+    answer: Dimensional Portal
+  - question: "Name the spell with this text: `	Condemn all equipped items.`"
+    answer: Corrosive Mist
+  - question: "Name the spell with this text: `Summon a Melee Creep into any lane.`"
+    answer: Better Late Than Never
+  - question: "Name the spell with this text: `Purge enemy effects from a unit. Give that unit +2 Armor and +2 Retaliate this round.`"
+    answer: Aphotic Shield
+  - question: "Which color does the card with this text belong to: `Allied Melee Creeps have +2 Regeneration.`?"
+    answer: Green
+  - question: "Which color does the card with this text belong to: `Summon a Melee Creep into this lane each deployment phase.`?"
+    answer: Blue
