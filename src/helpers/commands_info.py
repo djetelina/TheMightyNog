@@ -78,3 +78,8 @@ artifact_trivia_stop = dict(
     description='Stop a running trivia game',
     brief='Stop a running trivia game'
 )
+
+invite = dict(
+    description='Get bot invite link',
+    brief='Get bot invite link'
+)

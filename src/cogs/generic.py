@@ -18,6 +18,10 @@ class Generic:
     async def patreon(self, ctx: commands.Context):
         await ctx.send('Scrollsguide patreon page: https://www.patreon.com/scrollsguide')
 
+    @commands.command(**commands_info.invite)
+    async def invite(self, ctx: commands.Context):
+        await ctx.send('To invite me into another server, use: https://discordapp.com/oauth2/authorize?&client_id=462315054922989569&scope=bot&permissions=0')
+
 
 def setup(bot):
     bot.add_cog(Generic(bot))
