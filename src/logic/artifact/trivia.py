@@ -32,7 +32,7 @@ class TriviaGame:
                     self.__answered = True
 
     def answer_question(self, answer: str, player: str) -> bool:
-        if answer.lower() == str(self.__active_question['answer']).lower():
+        if answer.lower() == str(self.__active_question['answer']).lower() and not self.__answered:
             self.__answered = True
             if player in self.leaderboard:
                 self.leaderboard[player] += 1
