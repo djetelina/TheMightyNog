@@ -1,5 +1,155 @@
 questions:
+  - question: Base attack of the green hero **Abaddon**?
+    answer: 4
+  - question: Base health of the green hero **Abaddon**?
+    answer: 9
   - question: Base attack of the red hero **Axe**?
+    answer: 7
+  - question: Base health of the red hero **Axe**?
+    answer: 11
+  - question: Base attack of the red hero **Tidehunter**?
+    answer: 2
+  - question: Base health of the red hero **Tidehunter**?
+    answer: 18
+  - question: Base attack of the red hero **Centaur Warrunner**?
+    answer: 4
+  - question: Base health of the red hero **Centaur Warrunner**?
+    answer: 14
+  - question: Base attack of the black hero **Bloodseeker**?
+    answer: 7
+  - question: Base health of the black hero **Bloodseeker**?
+    answer: 6
+  - question: Base attack of the red hero **Bristleback**?
+    answer: 8
+  - question: Base health of the red hero **Bristleback**?
+    answer: 12
+  - question: Base attack of the green hero **Chen**?
+    answer: 4
+  - question: Base health of the green hero **Chen**?
+    answer: 9
+  - question: Base attack of the blue hero **Crystal Maiden**?
+    answer: 2
+  - question: Base health of the blue hero **Crystal Maiden**?
+    answer: 5
+  - question: Base attack of the blue hero **Earthshaker**?
+    answer: 2
+  - question: Base health of the blue hero **Earthshaker**?
+    answer: 7
+  - question: Base attack of the black hero **Bounty Hunter**?
+    answer: 7
+  - question: Base health of the black hero **Bounty Hunter**?
+    answer: 7
+  - question: Base attack of the red hero **Timbersaw**?
+    answer: 4
+  - question: Base health of the red hero **Timbersaw**?
+    answer: 11
+  - question: Base attack of the green hero **Enchantress**?
+    answer: 4
+  - question: Base health of the green hero **Enchantress**?
+    answer: 8
+  - question: Base attack of the green hero **Fahrvan**?
+    answer: 4
+  - question: Base health of the green hero **Fahrvan**?
+    answer: 11
+  - question: Base attack of the green hero **Treant Protector**?
+    answer: 4
+  - question: Base health of the green hero **Treant Protector**?
+    answer: 10
+  - question: Base attack of the blue hero **J'Muy**?
+    answer: 3
+  - question: Base health of the blue hero **J'Muy**?
+    answer: 8
+  - question: Base attack of the blue hero **Kanna**?
+    answer: 2
+  - question: Base health of the blue hero **Kanna**?
+    answer: 12
+  - question: Base attack of the red hero **Beastmaster**?
+    answer: 5
+  - question: Base health of the red hero **Beastmaster**?
+    answer: 12
+  - question: Base attack of the red hero **Keefe**?
+    answer: 6
+  - question: Base health of the red hero **Keefe**?
+    answer: 11
+  - question: Base attack of the red hero **Legion Commander**?
+    answer: 6
+  - question: Base health of the red hero **Legion Commander**?
+    answer: 8
+  - question: Base attack of the black hero **Lich**?
+    answer: 5
+  - question: Base health of the black hero **Lich**?
+    answer: 9
+  - question: Base attack of the black hero **Lion**?
+    answer: 6
+  - question: Base health of the black hero **Lion**?
+    answer: 5
+  - question: Base attack of the green hero **Magnus**?
+    answer: 4
+  - question: Base health of the green hero **Magnus**?
+    answer: 9
+  - question: Base attack of the red hero **Mazzie**?
+    answer: 6
+  - question: Base health of the red hero **Mazzie**?
+    answer: 6
+  - question: Base attack of the green hero **Omniknight**?
+    answer: 5
+  - question: Base health of the green hero **Omniknight**?
+    answer: 12
+  - question: Base attack of the black hero **Phantom Assassin**?
+    answer: 6
+  - question: Base health of the black hero **Phantom Assassin**?
+    answer: 8
+  - question: Base attack of the blue hero **Venomancer**?
+    answer: 2
+  - question: Base health of the blue hero **Venomancer**?
+    answer: 6
+  - question: Base attack of the blue hero **Outworld Devourer**?
+    answer: 4
+  - question: Base health of the blue hero **Outworld Devourer**?
+    answer: 6
+  - question: Base attack of the blue hero **Prellex**?
+    answer: 3
+  - question: Base health of the blue hero **Prellex**?
+    answer: 5
+  - question: Base attack of the black hero **Riley**?
+    answer: 7
+  - question: Base health of the black hero **Riley**?
+    answer: 5
+  - question: Base attack of the green hero **Rix**?
+    answer: 3
+  - question: Base health of the green hero **Rix**?
+    answer: 7
+  - question: Base attack of the blue hero **Skywrath Mage**?
+    answer: 3
+  - question: Base health of the blue hero **Skywrath Mage**?
+    answer: 6
+  - question: Base attack of the black hero **Sniper**?
+    answer: 5
+  - question: Base health of the black hero **Sniper**?
+    answer: 6
+  - question: Base attack of the black hero **Sorla Khan**?
+    answer: 8
+  - question: Base health of the black hero **Sorla Khan**?
+    answer: 6
+  - question: Base attack of the red hero **Sven**?
+    answer: 5
+  - question: Base health of the red hero **Sven**?
+    answer: 11
+  - question: Base attack of the black hero **Storm Spirit**?
+    answer: 4
+  - question: Base health of the black hero **Storm Spirit**?
+    answer: 6
+  - question: Base attack of the red hero **Ursa**?
+    answer: 7
+  - question: Base health of the red hero **Ursa**?
+    answer: 10
+  - question: Base attack of the black hero **Winter Wyvern**?
+    answer: 6
+  - question: Base health of the black hero **Winter Wyvern**?
+    answer: 6
+  - question: Base attack of the blue hero **Zeus**?
+    answer: 3
+  - question: Base health of the blue hero **Zeus**?
     answer: 7
   - question: Base attack of the red hero **Pugna**?
     answer: 6
@@ -83,6 +233,74 @@ questions:
     answer: 4
   - question: What is the name of **Axe**'s signature spell?
     answer: Berserker's Call
+  - question: What is the name of **Abaddon**'s signature spell?
+    answer: Apothic Shield
+  - question: What is the name of **Tidehunter**'s signature spell?
+    answer: Kraken Shell
+  - question: What is the name of **Centaur Warrunner**'s signature spell?
+    answer: Double Edge
+  - question: What is the name of **Bristleback**'s signature spell?
+    answer: Viscous Nasal Goo
+  - question: What is the name of **Chen**'s signature spell?
+    answer: Hand of God
+  - question: What is the name of **Crystal Maiden**'s signature spell?
+    answer: Frostbite
+  - question: What is the name of **Earthshaker**'s signature spell?
+    answer: Echo Slam
+  - question: What is the name of **Fahrvan**'s signature spell?
+    answer: Prowler Vanguard
+  - question: What is the name of **J'Muy**'s signature spell?
+    answer: Battlefield Control
+  - question: What is the name of **Kanna**'s signature spell?
+    answer: Prey on the Weak
+  - question: What is the name of **Beastmaster**'s signature spell?
+    answer: Call of the Wild
+  - question: What is the name of **Keefe**'s signature spell?
+    answer: Fighting Instinct
+  - question: What is the name of **Legion Commander**'s signature spell?
+    answer: Duel
+  - question: What is the name of **Lich**'s signature spell?
+    answer: Chain Frost
+  - question: What is the name of **Lion**'s signature spell?
+    answer: Mana Drain
+  - question: What is the name of **Luna**'s signature spell?
+    answer: Eclipse
+  - question: What is the name of **Lycan**'s signature spell?
+    answer: Savage Wolf
+  - question: What is the name of **Magnus**'s signature spell?
+    answer: Empower
+  - question: What is the name of **Mazzie**'s signature spell?
+    answer: Steel Reinforcements
+  - question: What is the name of **Meepo**'s signature spell?
+    answer: Divided We Stand
+  - question: What is the name of **Necrophos**'s signature spell?
+    answer: Hearthstopper Aura
+  - question: What is the name of **Omniknight**'s signature spell?
+    answer: Allseeing One's Favor
+  - question: What is the name of **Phantom Assasin**'s signature spell?
+    answer: Coup de Grace
+  - question: What is the name of **Venomancer**'s signature spell?
+    answer: Sow Venom
+  - question: What is the name of **Prellex**'s signature spell?
+    answer: Barracks
+  - question: What is the name of **Pugna**'s signature spell?
+    answer: Nether Ward
+  - question: What is the name of **Riley**'s signature spell?
+    answer: No Accident
+  - question: What is the name of **Rix**'s signature spell?
+    answer: Truth to Power
+  - question: What is the name of **Skywrath Mage**'s signature spell?
+    answer: Mystic Flare
+  - question: What is the name of **Sniper**'s signature spell?
+    answer: Assassinate
+  - question: What is the name of **Sorla Khan**'s signature spell?
+    answer: Assault Ladders
+  - question: What is the name of **Ursa**'s signature spell?
+    answer: Enrage
+  - question: What is the name of **Winter Wyvern**'s signature spell?
+    answer: Winter's Curse
+  - question: What is the name of **Zeus**'s signature spell?
+    answer: Thunder God's Wrath
   - question: What color is the hero **Phantom Assasin** from?
     answer: Black
   - question: How much gold does **Blink Dagger** cost?
