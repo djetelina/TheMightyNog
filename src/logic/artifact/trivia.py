@@ -16,6 +16,7 @@ class TriviaGame:
         self.stopped = False
         self.__active_question: Optional[TriviaQuestion] = None
         self.__answered = False
+        self.leaderboard = {}
 
     async def play(self) -> AsyncGenerator[str, None]:
         while not self.stopped and self._questions:
@@ -30,11 +31,19 @@ class TriviaGame:
                     yield f"Correct answer was: {self.__active_question['answer']}"
                     self.__answered = True
 
-    def answer_question(self, answer):
-        if answer.lower() == self.__active_question['answer'].lower():
+    def answer_question(self, answer: str, player: str) -> bool:
+        if answer.lower() == str(self.__active_question['answer']).lower():
             self.__answered = True
+            if player in self.leaderboard:
+                self.leaderboard[player] += 1
+            else:
+                self.leaderboard[player] = 1
             return True
         return False
 
-    def stop(self):
+    def stop(self) -> None:
         self.stopped = True
+
+    def score(self, limit: int=5) -> str:
+        top_players = sorted(self.leaderboard.items(), key=lambda x: (x[1], x[0]), reverse=True)
+        return'\n* '.join([f'{p[0]}: {p[1]}' for p in top_players[:limit]])

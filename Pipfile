@@ -16,6 +16,7 @@ python-levenshtein = "*"
 raven = "*"
 mypy-extensions = "*"
 toml = "*"
+pyyaml = "*"
 
 [dev-packages]
 mypy = "*"

@@ -5,7 +5,7 @@ import asyncio
 from pathlib import Path
 from typing import Dict
 
-import toml
+import yaml
 from discord import TextChannel, Message
 from discord.ext import commands
 
@@ -17,9 +17,9 @@ from logic.artifact.trivia import TriviaGame
 class Trivia:
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
-        questions_path = (Path(__file__).resolve().parent.parent.parent / 'logic' / 'artifact' / 'trivia_questions.tml')
+        questions_path = (Path(__file__).resolve().parent.parent.parent / 'logic' / 'artifact' / 'trivia_questions.yml')
         with open(questions_path, 'r') as f:
-            self.questions = toml.load(f)['questions']
+            self.questions = yaml.safe_load(f)['questions']
         self.__channel_games: Dict[str, TriviaGame] = {}
         self.bot.add_listener(self.answer_question, 'on_message')
 
@@ -51,16 +51,14 @@ class Trivia:
             await ctx.send('There is no game to stop')
         else:
             self.__channel_games[channel_uid_from_ctx(ctx)].stop()
-            del self.__channel_games[channel_uid_from_ctx(ctx)]
-            await ctx.send('Game stopped')
+            await ctx.send('Trivia game stopped manually')
 
     async def play(self, ctx: commands.Context) -> None:
         game = self.__channel_games[channel_uid_from_ctx(ctx)]
         async for line in game.play():
             await ctx.send(line)
-        if not game.stopped:
-            await ctx.send('Those are all my questions, thank you for playing!')
-            del self.__channel_games[channel_uid_from_ctx(ctx)]
+        await ctx.send(f'**Final score:**\n\n{game.score(limit=3)}')
+        del self.__channel_games[channel_uid_from_ctx(ctx)]
 
     async def answer_question(self, message: Message) -> None:
         try:
@@ -68,7 +66,7 @@ class Trivia:
         except AttributeError:
             return
         if channel_uid in self.__channel_games:
-            if self.__channel_games[channel_uid].answer_question(message.content):
+            if self.__channel_games[channel_uid].answer_question(message.content, message.author.name):
                 await message.channel.send(f'Correct answer from {message.author.name}!')
 
 
