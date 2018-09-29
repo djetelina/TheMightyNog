@@ -183,54 +183,158 @@ questions:
     answer: 14
   - question: Base attack of **Thunderhide Pack**?
     answer: 14
-  - question: How much mana does the blue spell **Annihilation** cost?
+  - question: "How much mana does the Green spell **Act of Defiance** cost?"
+    answer: 4
+  - question: "How much mana does the Green spell **Allseeing One's Favor** cost?"
+    answer: 4
+  - question: "How much mana does the Blue spell **Annihilation** cost?"
     answer: 6
-  - question: How much mana does the red spell **Berserker's Call** cost?
-    answer: 6
-  - question: How much mana does the black spell **Coup de Grace** cost?
-    answer: 6
-  - question: How much mana does the blue spell **Cunning Plan** cost?
+  - question: "How much mana does the Green spell **Aphotic Shield** cost?"
     answer: 2
-  - question: How much mana does the blue spell **Dimension Portal** cost?
-    answer: 4
-  - question: How much mana does the blue spell **Diabolic Revelation** cost?
+  - question: "How much mana does the Black spell **Assassinate** cost?"
+    answer: 7
+  - question: "How much mana does the Blue spell **Diabolic Revelation** cost?"
     answer: 1
-  - question: How much mana does the blue spell **Divided We Stand** cost?
-    answer: 4
-  - question: How much mana does the blue spell **Frostbite** cost?
-    answer: 3
-  - question: How much mana does the red spell **Double Edge** cost?
+  - question: "How much mana does the Blue spell **Battlefield Control** cost?"
     answer: 1
-  - question: How much mana does the red spell **Poised to Strike** cost?
+  - question: "How much mana does the Red spell **Primal Roar** cost?"
+    answer: 7
+  - question: "How much mana does the Red spell **Berserker's Call** cost?"
+    answer: 6
+  - question: "How much mana does the Red spell **Double Edge** cost?"
     answer: 1
-  - question: How much mana does the black spell **Grazing Shot** cost?
-    answer: 1
-  - question: How much mana does the black spell **Iron Fog Goldmine** cost?
+  - question: "How much mana does the Blue spell **Better Late Than Never** cost?"
     answer: 3
-  - question: How much mana does the green creep **Savage Wolf** cost?
-    answer: 4
-  - question: How much mana does the green creep **Selfish Cleric** cost?
-    answer: 4
-  - question: How much mana does the green creep **Rebel Decoy** cost?
-    answer: 3
-  - question: How much mana does the green creep **Vhoul Martyr** cost?
-    answer: 2
-  - question: How much mana does the green creep **Smeevil Blacksmith** cost?
-    answer: 4
-  - question: How much mana does the black creep **Hound of War** cost?
-    answer: 3
-  - question: How much mana does the red creep **Centaur Hunter** cost?
+  - question: "How much mana does the Green spell **Corrosive Mist** cost?"
     answer: 5
-  - question: How much mana does the red creep **Bronze Legionnaire** cost?
-    answer: 2
-  - question: How much mana does the red creep **Cursed Satyr** cost?
-    answer: 5
-  - question: How much mana does the red creep **Hellbear Cripple** cost?
-    answer: 3
-  - question: How much mana does the red creep **Keenfolk Golem** cost?
-    answer: 6
-  - question: How much mana does the red creep **Legion Standard Bearer** cost?
+  - question: "How much mana does the Blue spell **And One For Me** cost?"
     answer: 4
+  - question: "How much mana does the Red spell **Clear the Deck** cost?"
+    answer: 4
+  - question: "How much mana does the Red spell **Combat Training** cost?"
+    answer: 3
+  - question: "How much mana does the Black spell **Blood Rage** cost?"
+    answer: 5
+  - question: "How much mana does the Black spell **Coup de Grace** cost?"
+    answer: 6
+  - question: "How much mana does the Blue spell **Cunning Plan** cost?"
+    answer: 2
+  - question: "How much mana does the Red spell **Defensive Stance** cost?"
+    answer: 2
+  - question: "How much mana does the Blue spell **Dimensional Portal** cost?"
+    answer: 4
+  - question: "How much mana does the Blue spell **Divided We Stand** cost?"
+    answer: 4
+  - question: "How much mana does the Green spell **Iron Branch Protection** cost?"
+    answer: 2
+  - question: "How much mana does the Green spell **Divine Purpose** cost?"
+    answer: 7
+  - question: "How much mana does the Black spell **Slay** cost?"
+    answer: 3
+  - question: "How much mana does the Black spell **Hip Fire** cost?"
+    answer: 4
+  - question: "How much mana does the Black spell **Arcane Censure** cost?"
+    answer: 4
+  - question: "How much mana does the Black spell **Gank** cost?"
+    answer: 4
+  - question: "How much mana does the Red spell **Duel** cost?"
+    answer: 2
+  - question: "How much mana does the Blue spell **Echo Slam** cost?"
+    answer: 7
+  - question: "How much mana does the Blue spell **Eclipse** cost?"
+    answer: 6
+  - question: "How much mana does the Green spell **Empower** cost?"
+    answer: 4
+  - question: "How much mana does the Red spell **Enough Magic!** cost?"
+    answer: 5
+  - question: "How much mana does the Red spell **Enrage** cost?"
+    answer: 4
+  - question: "How much mana does the Red spell **Fighting Instinct** cost?"
+    answer: 5
+  - question: "How much mana does the Blue spell **Foresight** cost?"
+    answer: 4
+  - question: "How much mana does the Blue spell **Friendly Fire** cost?"
+    answer: 6
+  - question: "How much mana does the Blue spell **Frostbite** cost?"
+    answer: 3
+  - question: "How much mana does the Red spell **God's Strength** cost?"
+    answer: 6
+  - question: "How much mana does the Black spell **Dirty Deeds** cost?"
+    answer: 3
+  - question: "How much mana does the Blue spell **Remote Detonation** cost?"
+    answer: 6
+  - question: "How much mana does the Red spell **Pick a Fight** cost?"
+    answer: 2
+  - question: "How much mana does the Red spell **Sucker Punch** cost?"
+    answer: 4
+  - question: "How much mana does the Black spell **Crack the Whip** cost?"
+    answer: 4
+  - question: "How much mana does the Red spell **Fight Through The Pain** cost?"
+    answer: 1
+  - question: "How much mana does the Red spell **Heroic Resolve** cost?"
+    answer: 2
+  - question: "How much mana does the Red spell **Rising Anger** cost?"
+    answer: 2
+  - question: "How much mana does the Black spell **Grazing Shot** cost?"
+    answer: 1
+  - question: "How much mana does the Green spell **Hand of God** cost?"
+    answer: 7
+  - question: "How much mana does the Red spell **Kraken Shell** cost?"
+    answer: 1
+  - question: "How much mana does the Black spell **Heartstopper Aura** cost?"
+    answer: 4
+  - question: "How much mana does the Blue spell **Bolt of Damocles** cost?"
+    answer: 10
+  - question: "How much mana does the Blue spell **Buying Time** cost?"
+    answer: 3
+  - question: "How much mana does the Black spell **Collateral Damage** cost?"
+    answer: 4
+  - question: "How much mana does the Black spell **Chain Frost** cost?"
+    answer: 7
+  - question: "How much mana does the Black spell **Mana Drain** cost?"
+    answer: 2
+  - question: "How much mana does the Blue spell **Mystic Flare** cost?"
+    answer: 6
+  - question: "How much mana does the Red spell **New Orders** cost?"
+    answer: 1
+  - question: "How much mana does the Black spell **No Accident** cost?"
+    answer: 3
+  - question: "How much mana does the Black spell **Payday** cost?"
+    answer: 3
+  - question: "How much mana does the Black spell **Pick Off** cost?"
+    answer: 4
+  - question: "How much mana does the Red spell **Spring the Trap** cost?"
+    answer: 7
+  - question: "How much mana does the Red spell **Poised to Strike** cost?"
+    answer: 1
+  - question: "How much mana does the Blue spell **Sow Venom** cost?"
+    answer: 4
+  - question: "How much mana does the Blue spell **Prey on the Weak** cost?"
+    answer: 4
+  - question: "How much mana does the Green spell **Defensive Bloom** cost?"
+    answer: 4
+  - question: "How much mana does the Black spell **Murder Plot** cost?"
+    answer: 4
+  - question: "How much mana does the Black spell **Relentless Pursuit** cost?"
+    answer: 1
+  - question: "How much mana does the Blue spell **Strafing Run** cost?"
+    answer: 1
+  - question: "How much mana does the Red spell **Take Aim** cost?"
+    answer: 1
+  - question: "How much mana does the Blue spell **Thunder God's Wrath** cost?"
+    answer: 7
+  - question: "How much mana does the Red spell **Time of Triumph** cost?"
+    answer: 8
+  - question: "How much mana does the Blue spell **Tower Barrage** cost?"
+    answer: 3
+  - question: "How much mana does the Green spell **Truth to Power** cost?"
+    answer: 5
+  - question: "How much mana does the Blue spell **Ventriloquy** cost?"
+    answer: 1
+  - question: "How much mana does the Red spell **Viscous Nasal Goo** cost?"
+    answer: 4
+  - question: "How much mana does the Black spell **Winter's Curse** cost?"
+    answer: 6
   - question: What is the name of **Axe**'s signature spell?
     answer: Berserker's Call
   - question: What is the name of **Abaddon**'s signature spell?
@@ -343,16 +447,158 @@ questions:
     answer: 5
   - question: "Fill the description for **Poaching Knife**: `Equipped hero has +2 Attack. Get 5 gold after an enemy hero dies. Get _ gold after an enemy creep dies.`"
     answer: 1
+  - question: "Name the spell with this text: `Modify allied creeps with +2 Attack and +1 Armor.`"
+    answer: Act of Defiance
+  - question: "Name the spell with this text: `Modify a green hero with 'Allies have +2 Regeneration'`"
+    answer: Allseeing One's Favor
   - question: "Name the spell with this text: `Condemn all units.`"
     answer: Annihilation
-  - question: "Name the spell with this text: `Deal 4 damage to a unit.`"
-    answer: Hip Fire
-  - question: "Name the spell with this text: `Summon three Melee Creeps.`"
-    answer: Dimensional Portal
-  - question: "Name the spell with this text: `	Condemn all equipped items.`"
-    answer: Corrosive Mist
+  - question: "Name the spell with this text: `Purge enemy effects from a unit. Give that unit +2 Armor and +2 Retaliate this round.`"
+    answer: Aphotic Shield
+  - question: "Name the spell with this text: `Deal 10 piercing damage to a unit in any lane.`"
+    answer: Assassinate
+  - question: "Name the spell with this text: `Draw 2 cards. Deal 2 damage to allies in all lanes.`"
+    answer: Diabolic Revelation
+  - question: "Name the spell with this text: `Choose a unit. Choose a combat target for it.`"
+    answer: Battlefield Control
+  - question: "Name the spell with this text: `Stun a unit blocking an allied red hero this round. Move that unit's allied neighbors to random other lanes.`"
+    answer: Primal Roar
+  - question: "Name the spell with this text: `Choose an allied red hero. It battles its enemy neighbors.`"
+    answer: Berserker's Call
+  - question: "Name the spell with this text: `Give a red hero +8 Attack and -8 Armor this round.`"
+    answer: Double Edge
   - question: "Name the spell with this text: `Summon a Melee Creep into any lane.`"
     answer: Better Late Than Never
+  - question: "Name the spell with this text: `Condemn all equipped items.`"
+    answer: Corrosive Mist
+  - question: "Name the spell with this text: `Choose a hero. Put a base copy of a random item equipped by that hero into your hand.`"
+    answer: And One For Me
+  - question: "Name the spell with this text: `Give allied heroes +4 Cleave this round.`"
+    answer: Clear the Deck
+  - question: "Name the spell with this text: `Modify a hero with +2 Attack.`"
+    answer: Combat Training
+  - question: "Name the spell with this text: `Silence a unit this round. Give that unit +4 Attack this round.`"
+    answer: Blood Rage
+  - question: "Name the spell with this text: `Condemn  hero. Discard a random card.`"
+    answer: Coup de Grace
+  - question: "Name the spell with this text: `Swap a unit with one of its allied neighbors. Draw a card.`"
+    answer: Cunning Plan
+  - question: "Name the spell with this text: `Unknown`"
+    answer: Defensive Stance
+  - question: "Name the spell with this text: `Summon 3 Melee Creeps`"
+    answer: Dimensional Portal
+  - question: "Name the spell with this text: `Summon a Meepo`"
+    answer: Divided We Stand
+  - question: "Name the spell with this text: `Give a unit in any lane +3 Armor until end of its next combat phase.`"
+    answer: Iron Branch Protection
+  - question: "Name the spell with this text: `Modify a unit with Damage Immunity.`"
+    answer: Divine Purpose
+  - question: "Name the spell with this text: `Condemn a creep.`"
+    answer: Slay
+  - question: "Name the spell with this text: `Deal 4 Damage to a unit. Get Initiative.`"
+    answer: Hip Fire
+  - question: "Name the spell with this text: `Modify the enemy tower with -1 Mana.`"
+    answer: Arcane Censure
+  - question: "Name the spell with this text: `Choose an allied black hero. Choose another unit in any lane. They battle each other.`"
+    answer: Gank
+  - question: "Name the spell with this text: `Choose an allied red hero and another unit. They battle each other.`"
+    answer: Duel
+  - question: "Name the spell with this text: `Deal damage to each enemy equal to the number of enemies.`"
+    answer: Echo Slam
+  - question: "Name the spell with this text: `Repeat 1 time for each charge: Deal 3 piercing damage to a random enemy.`"
+    answer: Eclipse
+  - question: "Name the spell with this text: `Modify a unit with +3 Attack and +3 Cleave.`"
+    answer: Empower
+  - question: "Name the spell with this text: `Proceed to the combat phase`"
+    answer: Enough Magic!
+  - question: "Name the spell with this text: `Give a red hero +4 Attack and +4 Armor this round.`"
+    answer: Enrage
+  - question: "Name the spell with this text: `Modify a red hero with +1 Attack and +1 Armor.`"
+    answer: Fighting Instinct
+  - question: "Name the spell with this text: `Draw 2 cards.`"
+    answer: Foresight
+  - question: "Name the spell with this text: `Choose two enemies. They battle each other.`"
+    answer: Friendly Fire
+  - question: "Name the spell with this text: `Deal 2 damage to a unit and disarm it this round`"
+    answer: Frostbite
+  - question: "Name the spell with this text: `Unknown`"
+    answer: God's Strength
+  - question: "Name the spell with this text: `Deal 2 damage to the enemy tower for each of its improvements.`"
+    answer: Dirty Deeds
+  - question: "Name the spell with this text: `Deal 5 damage to each enemy without a blocker.`"
+    answer: Remote Detonation
+  - question: "Name the spell with this text: `Choose an allied hero. It taunts. Choose a combat target for it.`"
+    answer: Pick a Fight
+  - question: "Name the spell with this text: `Stun a unit blocking an allied red hero this round. Deal 2 damage to that unit.'`"
+    answer: Sucker Punch
+  - question: "Name the spell with this text: `Modify a black hero with 'After you play a black card, give this hero and its allied neighbors +2 Attack this round.'`"
+    answer: Crack the Whip
+  - question: "Name the spell with this text: `Give a red hero +2 Armor this round. Get Initiative`"
+    answer: Fight Through The Pain
+  - question: "Name the spell with this text: `Modify a red hero with 'After you play a non-item card costing 2 or less, modify this hero with +2 Health.'`"
+    answer: Heroic Resolve
+  - question: "Name the spell with this text: `Modify a red hero with 'After you play a non-item card costing 2 or less, modify this hero with +1 Attack.'`"
+    answer: Rising Anger
+  - question: "Name the spell with this text: `Deal 2 damage to a unit in any lane.`"
+    answer: Grazing Shot
+  - question: "Name the spell with this text: `Fully heal each ally. Give allies Damage Immunity this round.`"
+    answer: Hand of God
+  - question: "Name the spell with this text: `Modify a red hero with +1 Armor. Get initiative.`"
+    answer: Kraken Shell
+  - question: "Name the spell with this text: `Modify a black hero with 'Deal 2 Piercing damage to this hero's enemy neighbors before the action phase'`"
+    answer: Heartstopper Aura
+  - question: "Name the spell with this text: `Deal 20 damage to the enemy tower.`"
+    answer: Bolt of Damocles
+  - question: "Name the spell with this text: `Give two random cards in opponent's hand +2 Lock.`"
+    answer: Buying Time
+  - question: "Name the spell with this text: `Modify a black hero with +3 Siege.'`"
+    answer: Collateral Damage
+  - question: "Name the spell with this text: `Deal 3 damage to a unit. Repeat 7 times: Deal 3 damage to a random unit to the left or right. Get initiative.`"
+    answer: Chain Frost
+  - question: "Name the spell with this text: `Give the enemy tower -2 Mana this round and give your tower +2 Mana this round.`"
+    answer: Mana Drain
+  - question: "Name the spell with this text: `Deal 12 damage evenly divided among a unit and its allied negihbors.`"
+    answer: Mystic Flare
+  - question: "Name the spell with this text: `Choose an ally. Choose a combat target for it.`"
+    answer: New Orders
+  - question: "Name the spell with this text: `Deal 3 damage to a unit.`"
+    answer: No Accident
+  - question: "Name the spell with this text: `Double your gold.`"
+    answer: Payday
+  - question: "Name the spell with this text: `Deal 4 damage to a unit in any lane.`"
+    answer: Pick Off
+  - question: "Name the spell with this text: `Summon two Centaur Hunters into any lane.`"
+    answer: Spring the Trap
+  - question: "Name the spell with this text: `Give a red hero +4 Attack this round.`"
+    answer: Poised to Strike
+  - question: "Name the spell with this text: `Summon two Plague Wards.`"
+    answer: Sow Venom
+  - question: "Name the spell with this text: `Summon a Hound of War for every damaged unit.`"
+    answer: Prey on the Weak
+  - question: "Name the spell with this text: `Summon two Roseleaf Walls`"
+    answer: Defensive Bloom
+  - question: "Name the spell with this text: `Give a black hero +8 Attack this round. Choose a combat target for it.`"
+    answer: Murder Plot
+  - question: "Name the spell with this text: `Choose a unit in another lane. Move a random allied black hero from this lane to that lane. Deal 2 damage to the chosen unit.`"
+    answer: Relentless Pursuit
+  - question: "Name the spell with this text: `Deal 2 damage to each enemy creep.`"
+    answer: Strafing Run
+  - question: "Name the spell with this text: `Give a red hero +4 Attack this round.`"
+    answer: Take Aim
+  - question: "Name the spell with this text: `Deal 4 piercing damage to each enemy hero in all lanes.`"
+    answer: Thunder God's Wrath
+  - question: "Name the spell with this text: `Modify allied heroes with +4 Attack, +4 Armor, +4 Cleave, +4 Retaliate, and +4 Siege.`"
+    answer: Time of Triumph
+  - question: "Name the spell with this text: `Deal 2 damage to each enemy.`"
+    answer: Tower Barrage
+  - question: "Name the spell with this text: `Silence a unit this round.`"
+    answer: Truth to Power
+  - question: "Name the spell with this text: `Choose a unit. It taunts.`"
+    answer: Ventriloquy
+  - question: "Name the spell with this text: `Modify a unit with -2 Armor.`"
+    answer: Viscous Nasal Goo
+  - question: "Name the spell with this text: `Disarm a unit until end of round. That units allied neighbors battle it.`"
+    answer: Winter's Curse
   - question: "Name the spell with this text: `Purge enemy effects from a unit. Give that unit +2 Armor and +2 Retaliate this round.`"
     answer: Aphotic Shield
   - question: "Which color does the card with this text belong to: `Allied Melee Creeps have +2 Regeneration.`?"

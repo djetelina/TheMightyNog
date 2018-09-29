@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Trivia game for Artifact game
 """
@@ -65,17 +66,14 @@ class Trivia:
             channel_uid = f'{message.guild.name}-{message.channel.name}'
         except AttributeError:
             return
-        if channel_uid in self.__channel_games:
-            if self.__channel_games[channel_uid].answer_question(message.content, message.author.name):
-                await self.clear_messages(message)
-                await message.channel.send(f'Correct answer from {message.author.name}!')
+        if channel_uid in self.__channel_games \
+            and message.author.id != self.bot.user.id \
+                and message.author.name not in self.__channel_games[channel_uid].tried_to_answer:
 
-    async def clear_messages(self, message: Message):
-        while True:
-            msgs = await message.channel.history().flatten()
-            if not msgs:
-                break
-            await message.channel.delete_messages(msgs)
+            if self.__channel_games[channel_uid].answer_question(message.content, message.author.name):
+                await message.add_reaction('✅')
+            else:
+                await message.add_reaction('❌')
 
 
 def setup(bot) -> None:
