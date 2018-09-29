@@ -67,14 +67,15 @@ class Trivia:
             return
         if channel_uid in self.__channel_games:
             if self.__channel_games[channel_uid].answer_question(message.content, message.author.name):
+                await self.clear_messages(message)
                 await message.channel.send(f'Correct answer from {message.author.name}!')
 
-    async def clear_messages(self, ctx: commands.Context):
+    async def clear_messages(self, message: Message):
         while True:
-            msgs = await ctx.message.channel.history().flatten()
+            msgs = await message.channel.history().flatten()
             if not msgs:
                 break
-            await ctx.channel.delete_messages(msgs)
+            await message.channel.delete_messages(msgs)
 
 
 def setup(bot) -> None:
