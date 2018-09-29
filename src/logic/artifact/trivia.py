@@ -16,11 +16,14 @@ class TriviaGame:
         self.stopped = False
         self.__active_question: Optional[TriviaQuestion] = None
         self.__answered = False
+        self.__tried_to_answer = []
         self.leaderboard: Dict[str, int] = {}
 
     async def play(self) -> AsyncGenerator[str, None]:
         while not self.stopped and self._questions:
+            await asyncio.sleep(1)  # Wait before asking new
             self.__answered = False
+            self.__tried_to_answer = []
             self.__active_question = self._questions.pop(randint(0, len(self._questions) - 1))
             yield self.__active_question['question']
             time_asked = time()
@@ -28,18 +31,21 @@ class TriviaGame:
                 if time_asked + self._wait_time > time():
                     await asyncio.sleep(1)
                 else:
-                    yield f"Correct answer was: {self.__active_question['answer']}"
                     self.__answered = True
+                    yield f"Correct answer was: **{self.__active_question['answer']}**"
+                    self._questions.append(self.__active_question)
 
     def answer_question(self, answer: str, player: str) -> bool:
-        if answer.lower() == str(self.__active_question['answer']).lower() and not self.__answered:
-            self.__answered = True
-            if player in self.leaderboard:
-                self.leaderboard[player] += 1
-            else:
-                self.leaderboard[player] = 1
-            return True
-        return False
+        if player not in self.__tried_to_answer:
+            self.__tried_to_answer.append(player)
+            if answer.lower() == str(self.__active_question['answer']).lower() and not self.__answered:
+                self.__answered = True
+                if player in self.leaderboard:
+                    self.leaderboard[player] += 1
+                else:
+                    self.leaderboard[player] = 1
+                return True
+            return False
 
     def stop(self) -> None:
         self.stopped = True

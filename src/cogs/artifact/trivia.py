@@ -69,6 +69,13 @@ class Trivia:
             if self.__channel_games[channel_uid].answer_question(message.content, message.author.name):
                 await message.channel.send(f'Correct answer from {message.author.name}!')
 
+    async def clear_messages(self, ctx: commands.Context):
+        while True:
+            msgs = await ctx.message.channel.history().flatten()
+            if not msgs:
+                break
+            await ctx.channel.delete_messages(msgs)
+
 
 def setup(bot) -> None:
     bot.add_cog(Trivia(bot))
