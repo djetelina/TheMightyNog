@@ -22,8 +22,7 @@ class TriviaGame:
 
     async def play(self) -> AsyncGenerator[str, None]:
         while not self.stopped and self._questions:
-            wait_new_question = 3
-            yield f'New question in {wait_new_question}s'
+            wait_new_question = 1
             await asyncio.sleep(wait_new_question)
             self.__answered = False
             self.tried_to_answer = []
