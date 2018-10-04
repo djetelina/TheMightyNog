@@ -33,7 +33,7 @@
         },
         "discord.py": {
             "git": "https://github.com/Rapptz/discord.py.git",
-            "ref": "836ae730401ea370aa10127bb9c86854c8b516ac"
+            "ref": "1da696258095d5c1171a1cdbe75f56c535c6683e"
         },
         "fuzzywuzzy": {
             "hashes": [
@@ -67,10 +67,10 @@
         },
         "prometheus-client": {
             "hashes": [
-                "sha256:17bc24c09431644f7c65d7bce9f4237252308070b6395d6d8e87767afe867e24"
+                "sha256:3e45bc729444144071d237b2fa7af8ef1a78a73ac60f9cdc1dfa92b451f224f4"
             ],
             "index": "pypi",
-            "version": "==0.3.1"
+            "version": "==0.4.0"
         },
         "psycopg2": {
             "hashes": [
@@ -299,7 +299,7 @@
                 "sha256:a68ac5e15e76e7e5dd2b8f94007233e01effe3e50e8daddf69acfd81cb686baf",
                 "sha256:b5725a0bd4ba422ab0e66e89e030c806576753ea3ee08554382c14e685d117b5"
             ],
-            "markers": "python_version != '3.0.*' and python_version < '4' and python_version != '3.1.*' and python_version != '3.2.*' and python_version != '3.3.*' and python_version >= '2.6'",
+            "markers": "python_version != '3.2.*' and python_version < '4' and python_version != '3.0.*' and python_version != '3.3.*' and python_version != '3.1.*' and python_version >= '2.6'",
             "version": "==1.23"
         }
     }
