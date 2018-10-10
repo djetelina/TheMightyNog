@@ -18,10 +18,10 @@
     "default": {
         "ago": {
             "hashes": [
-                "sha256:81e838ef978a19f8a263e72e4ae75345b639943e9853b33c4572b04b1d6f01f9"
+                "sha256:9d1956edd8103c266d968ae2a7eaf2f23470b6384e655aaaf54d1158408178ad"
             ],
             "index": "pypi",
-            "version": "==0.0.92"
+            "version": "==0.0.93"
         },
         "aiopg": {
             "hashes": [
