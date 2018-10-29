@@ -40,7 +40,7 @@ class User:
                 elif user.registering:
                     try:
                         consented = await user.process_consent(conn, consent)
-                    except UnknownConsentReply as _:
+                    except UnknownConsentReply:
                         await ctx.author.send("This might be a bit awkward, but I don't know if that's a yes or no")
                         return
                     if consented:

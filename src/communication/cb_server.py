@@ -17,7 +17,7 @@ message_received = Counter(
 
 
 class CBServer:
-    def __init__(self, address: str, port: int, username: str, password: str, reconnect: bool=True) -> None:
+    def __init__(self, address: str, port: int, username: str, password: str, reconnect: bool = True) -> None:
         self.address = address
         self.port = port
         self.username = username

@@ -25,7 +25,7 @@ class Dev:
             try:
                 self.bot.unload_extension(module)
                 self.bot.load_extension(module)
-            except Exception as _:
+            except Exception:
                 logging.exception(f"Couldn't reload module: {module}")
             else:
                 await ctx.send("Done!")
@@ -37,7 +37,7 @@ class Dev:
             module = f'cogs.{module}'
             try:
                 self.bot.load_extension(module)
-            except Exception as _:
+            except Exception:
                 logging.exception(f"Couldn't load module: {module}")
             else:
                 await ctx.send("Done!")
@@ -49,7 +49,7 @@ class Dev:
             module = f'cogs.{module}'
             try:
                 self.bot.unload_extension(module)
-            except Exception as _:
+            except Exception:
                 logging.exception(f"Couldn't unload module: {module}")
             else:
                 await ctx.send("Done!")

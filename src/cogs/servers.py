@@ -81,7 +81,7 @@ class Servers:
                     await ctx.author.send(f"Your server now has cbsapi: {str(desired_state)}")
 
     @commands.command(**commands_info.servers_rating)
-    async def rating(self, ctx: commands.Context, player: str, server_name: str='ScrollsGuide'):
+    async def rating(self, ctx: commands.Context, player: str, server_name: str = 'ScrollsGuide'):
         async with ctx.typing():
             async with self.bot.db_engine.acquire() as conn:
                 server = await self.__get_server_check_api(ctx, conn, server_name)
@@ -91,13 +91,13 @@ class Servers:
                     api = CBSAPI(server.cbsapi)
                     try:
                         player_data = await api.player(player)
-                    except PlayerNotFound as _:
+                    except PlayerNotFound:
                         await ctx.send(f"Player `{player}` not found")
                     else:
                         await ctx.send(f"{player_data['name']} has rating {int(player_data['rating'])}")
 
     @commands.command(**commands_info.servers_player)
-    async def player(self, ctx: commands.Context, player: str, server_name: str='ScrollsGuide'):
+    async def player(self, ctx: commands.Context, player: str, server_name: str = 'ScrollsGuide'):
         async with ctx.typing():
             async with self.bot.db_engine.acquire() as conn:
                 server = await self.__get_server_check_api(ctx, conn, server_name)
@@ -107,7 +107,7 @@ class Servers:
                     api = CBSAPI(server.cbsapi)
                     try:
                         player_data = await api.player(player, collection=True, games=True, unlocks=True)
-                    except PlayerNotFound as _:
+                    except PlayerNotFound:
                         await ctx.send(f"Player `{player}` not found")
                     else:
                         if player_data['last_login']:
@@ -128,7 +128,7 @@ class Servers:
                         await ctx.send(embed=embed)
 
     @commands.command(**commands_info.servers_top)
-    async def top(self, ctx: commands.Context, server_name: str='ScrollsGuide'):
+    async def top(self, ctx: commands.Context, server_name: str = 'ScrollsGuide'):
         async with ctx.typing():
             async with self.bot.db_engine.acquire() as conn:
                 server = await self.__get_server_check_api(ctx, conn, server_name)

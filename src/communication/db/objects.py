@@ -39,7 +39,7 @@ class BotServers:
 
 class BotServer:
     def __init__(self, name: str, address: str, owner: int,
-                 cbsapi: Optional[str]=None, owner_name: Optional[str]=None) -> None:
+                 cbsapi: Optional[str] = None, owner_name: Optional[str] = None) -> None:
         self._name = name
         self._address = address
         self._owner = owner
@@ -56,7 +56,7 @@ class BotServer:
         return cls(name, address, owner)
 
     @classmethod
-    async def from_row_proxy(cls, row: RowProxy, guild: Optional[Guild]=None) -> 'BotServer':
+    async def from_row_proxy(cls, row: RowProxy, guild: Optional[Guild] = None) -> 'BotServer':
         if guild is not None and guild.get_member(row.owner):
             owner_name = guild.get_member(row.owner).name
         else:

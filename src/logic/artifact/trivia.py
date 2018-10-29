@@ -52,6 +52,6 @@ class TriviaGame:
     def stop(self) -> None:
         self.stopped = True
 
-    def score(self, limit: int=5) -> str:
+    def score(self, limit: int = 5) -> str:
         top_players = sorted(self.leaderboard.items(), key=lambda x: (x[1], x[0]), reverse=True)
         return'\n '.join([f'{p[0]}: {p[1]}' for p in top_players[:limit]])
