@@ -14,7 +14,7 @@ class TriviaGame:
         self._questions = questions.copy()
         self._wait_time = wait_time
         self.stopped = False
-        self.__active_question: Optional[TriviaQuestion] = None
+        self.__active_question: TriviaQuestion = dict(question='', answer='')
         self.__answered = False
         self.tried_to_answer = []  # type: List[str]
         self.leaderboard: Dict[str, int] = {}
