@@ -31,9 +31,13 @@
             "index": "pypi",
             "version": "==0.15.0"
         },
-        "discord.py": {
+        "discord-py": {
             "git": "https://github.com/Rapptz/discord.py.git",
             "ref": "860d6a9ace8248dfeec18b8b159e7b757d9f56bb"
+        },
+        "discord.py": {
+            "git": "https://github.com/Rapptz/discord.py.git",
+            "ref": "rewrite"
         },
         "fuzzywuzzy": {
             "hashes": [
@@ -177,10 +181,10 @@
         },
         "sqlalchemy": {
             "hashes": [
-                "sha256:c5951d9ef1d5404ed04bae5a16b60a0779087378928f997a294d1229c6ca4d3e"
+                "sha256:84412de3794acee05630e7788f25e80e81f78eb4837e7b71d0499129f660486a"
             ],
             "index": "pypi",
-            "version": "==1.2.12"
+            "version": "==1.2.13"
         },
         "toml": {
             "hashes": [
@@ -256,7 +260,6 @@
                 "sha256:9a7662ec724d0120012f6e29d6248ae3727d821bba522a0e6b356eff19126a49",
                 "sha256:f661252913bc1dbe7fcfcbf0af0db3f42ab65aabd1a6ca68fe5d466bace94dae"
             ],
-            "markers": "python_version != '3.3.*' and python_version >= '2.7' and python_version != '3.2.*' and python_version != '3.0.*' and python_version != '3.1.*'",
             "version": "==2.0.0"
         },
         "requests": {
@@ -300,7 +303,6 @@
                 "sha256:41c3db2fc01e5b907288010dec72f9d0a74e37d6994e6eb56849f59fea2265ae",
                 "sha256:8819bba37a02d143296a4d032373c4dd4aca11f6d4c9973335ca75f9c8475f59"
             ],
-            "markers": "python_version != '3.3.*' and python_version >= '2.7' and python_version != '3.2.*' and python_version != '3.0.*' and python_version != '3.1.*' and python_version < '4'",
             "version": "==1.24"
         }
     }
