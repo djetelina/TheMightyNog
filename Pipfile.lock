@@ -33,7 +33,7 @@
         },
         "discord-py": {
             "git": "https://github.com/Rapptz/discord.py.git",
-            "ref": "7fbdc6e83fccc7c3eb9c40087801e99d5a38211f"
+            "ref": "dea3ba5eb7c99f54c72b11f3e3f7b8f41649e779"
         },
         "discord.py": {
             "git": "https://github.com/Rapptz/discord.py.git",
@@ -173,10 +173,10 @@
         },
         "sqlalchemy": {
             "hashes": [
-                "sha256:52a42dbf02d0562d6e90e7af59f177f1cc027e72833cc29c3a821eefa009c71d"
+                "sha256:d5432832f91d200c3d8b473a266d59442d825f9ea744c467e68c5d9a9479fbce"
             ],
             "index": "pypi",
-            "version": "==1.2.17"
+            "version": "==1.3.2"
         },
         "toml": {
             "hashes": [
