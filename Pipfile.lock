@@ -33,7 +33,7 @@
         },
         "discord-py": {
             "git": "https://github.com/Rapptz/discord.py.git",
-            "ref": "dea3ba5eb7c99f54c72b11f3e3f7b8f41649e779"
+            "ref": "d37839f38acd79d49bc19ae06d3067a455695e9b"
         },
         "discord.py": {
             "git": "https://github.com/Rapptz/discord.py.git",
@@ -288,10 +288,10 @@
         },
         "urllib3": {
             "hashes": [
-                "sha256:61bf29cada3fc2fbefad4fdf059ea4bd1b4a86d2b6d15e1c7c0b582b9752fe39",
-                "sha256:de9529817c93f27c8ccbfead6985011db27bd0ddfcdb2d86f3f663385c6a9c22"
+                "sha256:4c291ca23bbb55c76518905869ef34bdd5f0e46af7afe6861e8375643ffee1a0",
+                "sha256:9a247273df709c4fedb38c711e44292304f73f39ab01beda9f6b9fc375669ac3"
             ],
-            "version": "==1.24.1"
+            "version": "==1.24.2"
         }
     }
 }
